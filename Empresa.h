@@ -17,16 +17,38 @@ class Empresa
 {private:
 	vector <Servico*> servicos;
 public:
+	//Construtor
 	Empresa();
+
+	//Destrutor
 	~Empresa(){};
+
+	//Retorna um vetor com todos os serviços disponibilizados pela empresa
 	vector<Servico*> getServicos() const;
+
+	//Adiciona um seviço ao vetor de serviços
 	void adicionaServico(Servico *s1);
-	void retiraServico (Servico *s1);//criar exceçao
+
+	//Apaga um serviço do vetor de serviços, criando uma exceção se o serviço que se quer apagar não existir
+	void retiraServico (Servico *s1);
+
+	//Imprime no ecrã os clientes que estão a usar os serviços
 	void readServicos() const;
+
+	//Retorna um vetor com os serviços atualmente usados por um ou mais clientes
 	vector< Servico*> returnAtivos();
+
+	//Retorna um vetor com os serviços que não estão a ser usados
 	vector< Servico*> returnInativos();
-	void printServicos(vector< Servico*> s1); //ordenar, e ver cenas
+
+	//Imprime no monitor os preços e nomes dos serviços, ordenando-os de forma crescente de preço
+	void printServicos(vector< Servico*> s1);
+
+	//Procura os serviços utilizados por um cliente
 	vector< Servico*> servicoCliente(string nome, unsigned int nif);
+
+	//Guarda a informação da empresa num ficheiro
+	void saveEmpresa();
 };
 
 

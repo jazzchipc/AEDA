@@ -5,6 +5,10 @@
  *      Author: ASUS
  */
 
+#include <fstream>
+#include "string.h"
+#include <cstring>
+
 #include "Camiao.h"
 #include "Cliente.h"
 #include "Empresa.h"
@@ -100,5 +104,30 @@ vector<Servico*> Empresa::servicoCliente(string nome, unsigned int nif) {
 
 	return retorno;
 }
+
+void Empresa::saveEmpresa()
+{
+	string f;
+
+	cout << "Indique o nome com que quer guardar o ficheiro: " << endl;
+	getline(cin, f);
+
+	char* ficheiro = &f[0]; // converte para array de chars, de forma a poder ser usado pelo ofstream
+
+	ofstream output(ficheiro); // cria um ficheiro para armazenar os dados
+
+	for (unsigned int i = 0; i < this->servicos.size(); i++)
+	{
+		output << "Lista de servicos";
+
+	}
+
+
+
+
+
+}
+
+
 
 
