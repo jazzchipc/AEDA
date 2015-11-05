@@ -194,7 +194,7 @@ int Empresa::loadEmpresa()
 	// Adicionar os camiões à frota
 	Frota frota;
 
-	while (getline(input, linha) != "END_FROTA")
+	while (getline(input, linha) && linha != "END_FROTA")
 	{
 		istringstream copia(linha);
 
@@ -215,6 +215,7 @@ int Empresa::loadEmpresa()
 
 	this->setFrota(frota); //Atualizar a frota da empresa
 
+	int indice = 0;
 	// Adicionar os serviços e os respetivos clientes
 	while (getline(input, linha)) //até ao final do ficheiro
 	{
@@ -237,6 +238,8 @@ int Empresa::loadEmpresa()
 
 		if (linha == "BEGIN_CLIENTES")
 		{
+			while (getline(input, linha) && linha != "END_CLIENTES")
+			{
 			string nome;
 			unsigned int nif;
 
@@ -245,9 +248,19 @@ int Empresa::loadEmpresa()
 
 			istringstream copia(linha);
 			copia >> nif;
+
+			Cliente*  cliente = new Cliente(nome, nif);
+
+			this->servicos[indice]->adicionaCliente(cliente);
+			}
 		}
+
+		indice++;
 	}
 
+	input.close();
+
+	return 0;
 }
 
 

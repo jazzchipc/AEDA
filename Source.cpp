@@ -11,7 +11,9 @@ int main()
 	//criar empresa
 	Empresa empresa("empresa");
 
-	Cliente* cliente1 = new Cliente ("Jose Gomes", 15511);
+	empresa.loadEmpresa();
+
+	/*Cliente* cliente1 = new Cliente ("Jose Gomes", 15511);
 	Cliente* cliente2 = new Cliente ("Antonio Martins", 18882);
 
 	Camiao* camiao1 = new Camiao (1, 1000, true);
@@ -31,20 +33,19 @@ int main()
 
 	empresa.adicionaServico(servico1);
 	empresa.adicionaServico(servico2);
-	empresa.adicionaServico(servico3);
+	empresa.adicionaServico(servico3);*/
 
 	empresa.printServicos();
 
-	servico1->adicionaCliente(cliente1);
+	/*servico1->adicionaCliente(cliente1);
 	servico1->adicionaCliente(cliente2);
 
 	servico2->adicionaCliente(cliente2);
 
 	servico1->readClientes();
 	servico2->readClientes();
-	servico3->readClientes();
+	servico3->readClientes();*/
 
-	empresa.saveEmpresa();
 
 	return 0;
 }
