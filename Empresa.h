@@ -16,11 +16,12 @@ using namespace std;
 
 class Empresa
 {private:
+	string nome;
 	vector <Servico*> servicos;
 	Frota frota;
 public:
 	//Construtor
-	Empresa();
+	Empresa(string nome);
 
 	//Destrutor
 	~Empresa(){};
@@ -52,8 +53,11 @@ public:
 	//Procura os serviços utilizados por um cliente
 	vector< Servico*> servicoCliente(string nome, unsigned int nif);
 
-	//Guarda a informação da empresa num ficheiro
+	//Guarda a informação da empresa num ficheiro com o nome da empresa
 	void saveEmpresa();
+
+	//Vai buscar a informação ao ficheiro com o nome da empresa
+	int loadEmpresa();
 };
 
 

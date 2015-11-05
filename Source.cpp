@@ -9,7 +9,7 @@ int main()
 
 {
 	//criar empresa
-	Empresa empresa;
+	Empresa empresa("empresa");
 
 	Cliente* cliente1 = new Cliente ("Jose Gomes", 15511);
 	Cliente* cliente2 = new Cliente ("Antonio Martins", 18882);
@@ -45,10 +45,6 @@ int main()
 	servico3->readClientes();
 
 	empresa.saveEmpresa();
-
-	char c;
-
-	cin >> c;
 
 	return 0;
 }

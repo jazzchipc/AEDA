@@ -9,6 +9,7 @@
 #include "string.h"
 #include <cstring>
 #include <iomanip>
+#include <sstream>
 
 #include "Camiao.h"
 #include "Cliente.h"
@@ -18,9 +19,9 @@
 #include "sequentialSearch.h"
 
 
-Empresa::Empresa()
+Empresa::Empresa(string nome)
 {
-
+	this->nome = nome;
 }
 
 void Empresa::setFrota(Frota frota)
@@ -114,45 +115,46 @@ vector<Servico*> Empresa::servicoCliente(string nome, unsigned int nif) {
 
 void Empresa::saveEmpresa()
 {
-	string f;
-
-	cout << "Indique o nome com que quer guardar o ficheiro: " << endl;
-	getline(cin, f);
+	string f = this->nome;
 
 	f = f + ".txt";
 
 	char* ficheiro = &f[0]; // converte para array de chars, de forma a poder ser usado pelo ofstream
 
-	ofstream output; // cria um ficheiro para armazenar os dados
+	ofstream output; // cria um ficheiro "<nome da empresa>.txt" para armazenar os dados
 	output.open(ficheiro);
 
 	//Guardar frota
 
 	vector <Camiao *> camioes = this->frota.getCamioes();
 
-	output << "FROTA" << endl;
+	output << "BEGIN_FROTA" << endl;
 
 	for (unsigned int i = 0; i < camioes.size(); i++)
 	{
-		output << camioes[i]->getCapCong() << " " << camioes[i]->getCapMax() << " " <<
+		output << camioes[i]->getCapCong() << ";" << camioes[i]->getCapMax() << ";" <<
 			camioes[i]->getCodigo() << endl;
 	}
 
+	output << "END_FROTA" << endl;
+
 	//Guardar servicos e respetivos clientes
-	output << "SERVICOS" << endl;
 
 	for (unsigned int i = 0; i < this->servicos.size(); i++)
 	{
-		output << this->servicos[i]->getId() << " " << this->servicos[i]->getPreco() << " " << this->servicos[i]->getStatus() << endl;
+		output << "SERVICO" << endl;
+		output << this->servicos[i]->getId() << ";" << this->servicos[i]->getPreco() << ";" << this->servicos[i]->getStatus() << endl;
 
 		vector <Cliente *> clientes = this->servicos[i]->getClientes();
 
-		output << "Clientes" << endl;
+		output << "BEGIN_CLIENTES" << endl;
 
 		for (unsigned int j = 0; j < clientes.size(); j++)
 		{
-			output << clientes[j]->getNome() << " " << clientes[j]->getNif() << endl;
+			output << clientes[j]->getNome() << endl << clientes[j]->getNif() << endl;
 		}
+
+		output << "END_CLIENTES" << endl;
 
 	}
 
@@ -161,6 +163,92 @@ void Empresa::saveEmpresa()
 
 }
 
+
+/*LISTA DE ERROS
+ * -1 : não abriu o ficheiro com o nome dado
+ * */
+
+
+int Empresa::loadEmpresa()
+
+{
+	string f = this->nome;
+
+	f = f + ".txt";
+
+	char* ficheiro = &f[0];
+
+	ifstream input;
+	input.open(ficheiro);	//abre o ficheiro com o nome da empresa
+
+	if (!input.is_open())	// se o ficheiro não estiver aberto, quer dizer que não existe
+	{
+		cout << "Nao ha ficheiro para a empresa referida." << endl;
+		return -1;
+	}
+
+	string linha; // string que vai guardar o conteúdo da linha a ser lida
+	string lixo; // para descartar partes desnecessárias. Ex: serparadores (";")
+
+
+	// Adicionar os camiões à frota
+	Frota frota;
+
+	while (getline(input, linha) != "END_FROTA")
+	{
+		istringstream copia(linha);
+
+		int codigo;
+		unsigned int cap_max;
+		bool cap_cong;
+
+		if (linha == "BEGIN_FROTA")
+			copia >> lixo;
+		else
+		{
+			copia >> codigo >> lixo >> cap_max >> lixo >> cap_cong;
+			Camiao* camiao = new Camiao (codigo, cap_max, cap_cong);
+			frota.adicionaCamiao(camiao);
+		}
+
+	}
+
+	this->setFrota(frota); //Atualizar a frota da empresa
+
+	// Adicionar os serviços e os respetivos clientes
+	while (getline(input, linha)) //até ao final do ficheiro
+	{
+
+		if (linha == "SERVICO")
+		{
+			int id;
+			float preco;
+			vector <Cliente*> clientes;
+			bool status;
+
+			getline (input, linha);
+			istringstream copia(linha);
+
+			copia >> id >> lixo >> preco >> lixo >> status;
+
+			Servico* servico = new Servico (id, preco);
+			this->adicionaServico(servico);
+		}
+
+		if (linha == "BEGIN_CLIENTES")
+		{
+			string nome;
+			unsigned int nif;
+
+			getline (input, nome);
+			getline (input, linha);
+
+			istringstream copia(linha);
+			copia >> nif;
+		}
+	}
+
+}
 
 
 
