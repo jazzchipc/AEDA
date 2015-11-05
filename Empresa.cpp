@@ -155,6 +155,7 @@ void Empresa::saveEmpresa()
 		}
 
 		output << "END_CLIENTES" << endl;
+		output << "END_CLIENTES" << endl;
 
 	}
 
@@ -188,40 +189,46 @@ int Empresa::loadEmpresa()
 	}
 
 	string linha; // string que vai guardar o conteúdo da linha a ser lida
-	string lixo; // para descartar partes desnecessárias. Ex: serparadores (";")
+	char lixo; // para descartar partes desnecessárias. Ex: serparadores (";")
 
 
 	// Adicionar os camiões à frota
 	Frota frota;
 
-	while (getline(input, linha) && linha != "END_FROTA")
+	getline(input, linha);
+
+	if (linha == "BEGIN_FROTA")
 	{
-		istringstream copia(linha);
-
-		int codigo;
-		unsigned int cap_max;
-		bool cap_cong;
-
-		if (linha == "BEGIN_FROTA")
-			copia >> lixo;
-		else
+		while (linha != "END_FROTA")
 		{
+			getline(input, linha);
+
+			istringstream copia(linha);
+
+			int codigo;
+			unsigned int cap_max;
+			bool cap_cong;
+
 			copia >> codigo >> lixo >> cap_max >> lixo >> cap_cong;
-			Camiao* camiao = new Camiao (codigo, cap_max, cap_cong);
+			Camiao* camiao = new Camiao(codigo, cap_max, cap_cong);
 			frota.adicionaCamiao(camiao);
 		}
-
 	}
 
-	this->setFrota(frota); //Atualizar a frota da empresa
+	this->setFrota(frota);
+
+	// Adicionar os serviços e os respetivos clientes
 
 	int indice = 0;
-	// Adicionar os serviços e os respetivos clientes
-	while (getline(input, linha)) //até ao final do ficheiro
+
+	while (!input.eof())
 	{
+		getline(input, linha);
 
 		if (linha == "SERVICO")
 		{
+			getline(input, linha);
+
 			int id;
 			float preco;
 			vector <Cliente*> clientes;
@@ -229,36 +236,35 @@ int Empresa::loadEmpresa()
 
 			char waste;
 
-			getline (input, linha);
 			istringstream copia(linha);
 
 			copia >> id >> waste >> preco >> waste >> status;
 
-			Servico* servico = new Servico (id, preco);
+			Servico* servico = new Servico(id, preco);
 			this->adicionaServico(servico);
 		}
 
+		getline(input, linha);
+
 		if (linha == "BEGIN_CLIENTES")
 		{
-			while (getline(input, linha) && linha != "END_CLIENTES")
+			while (linha != "END_CLIENTES")
 			{
-			string nome;
-			unsigned int nif;
+				string nome;
+				unsigned int nif;
 
-			nome = linha;
+				getline(input, nome);
+				getline(input, linha);
 
-			getline (input, linha);
+				istringstream copia(linha);
+				copia >> nif;
 
-			istringstream copia(linha);
-			copia >> nif;
-
-			Cliente*  cliente = new Cliente(nome, nif);
-
-			this->servicos[indice]->adicionaCliente(cliente);
+				Cliente* cliente = new Cliente(nome, nif);
+				this->servicos[indice]->adicionaCliente(cliente);
 			}
-		}
 
-		indice++;
+			indice++;
+		}
 	}
 
 	input.close();
