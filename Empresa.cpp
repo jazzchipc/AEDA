@@ -227,10 +227,12 @@ int Empresa::loadEmpresa()
 			vector <Cliente*> clientes;
 			bool status;
 
+			char waste;
+
 			getline (input, linha);
 			istringstream copia(linha);
 
-			copia >> id >> lixo >> preco >> lixo >> status;
+			copia >> id >> waste >> preco >> waste >> status;
 
 			Servico* servico = new Servico (id, preco);
 			this->adicionaServico(servico);
@@ -243,7 +245,8 @@ int Empresa::loadEmpresa()
 			string nome;
 			unsigned int nif;
 
-			getline (input, nome);
+			nome = linha;
+
 			getline (input, linha);
 
 			istringstream copia(linha);
