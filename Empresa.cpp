@@ -138,7 +138,7 @@ void Empresa::saveEmpresa()
 			camioes[i]->getCodigo() << endl;
 	}
 
-	//Guardar servicos e clientes
+	//Guardar servicos e respetivos clientes
 	output << "SERVICOS" << endl;
 
 	for (unsigned int i = 0; i < this->servicos.size(); i++)
