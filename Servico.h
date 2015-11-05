@@ -13,6 +13,8 @@
 #include <vector>
 #include <string>
 
+#include "Cliente.h"
+
 using namespace std;
 
 class Servico
@@ -20,18 +22,40 @@ class Servico
 	int id;
 	float preco;
 	vector <Cliente*> clientes;
-	bool status;
+	bool status;	// status = true se o serviço está a ser usado por alguém.
+					// status = false caso contrário
 public:
+	//Construtor
 	Servico(int id, float preco);
+
+	//Destrutor
 	~Servico() {};
+
+	//Altera status do serviço
 	void statusServico();
+
+	//Retorna o ID do serviço
 	int getId() const;
+
+	//Retorna o status do serviço
 	bool getStatus() const;
+
+	//Retorna o preço do serviço
 	float getPreco() const;
+
+	//Retorna o vetor de clientes que está a usufruir do serviço
 	vector<Cliente*> getClientes() const;
+
+	//Adiciona um cliente que tenha requisitado o serviço
 	void adicionaCliente(Cliente *j1);
-	void retiraCliente(Cliente *j1); //criar exceçao
+
+	//Retira um cliente que use o serviço, lançando uma exceção caso o cliente não seja encontrado
+	void retiraCliente(Cliente *j1);
+
+	//Imprime a lista de clientes que usa o serviço
 	void readClientes() const;
+
+	//Altera o preço do serviço
 	void updatePreco(float preco);
 
 };

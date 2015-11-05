@@ -10,18 +10,23 @@
 
 
 #include "Servico.h"
+#include "Frota.h"
 
 using namespace std;
 
 class Empresa
 {private:
 	vector <Servico*> servicos;
+	Frota frota;
 public:
 	//Construtor
 	Empresa();
 
 	//Destrutor
 	~Empresa(){};
+
+	//Substitui a frota atual
+	void setFrota(Frota frota);
 
 	//Retorna um vetor com todos os serviços disponibilizados pela empresa
 	vector<Servico*> getServicos() const;
@@ -42,7 +47,7 @@ public:
 	vector< Servico*> returnInativos();
 
 	//Imprime no monitor os preços e nomes dos serviços, ordenando-os de forma crescente de preço
-	void printServicos(vector< Servico*> s1);
+	void printServicos();
 
 	//Procura os serviços utilizados por um cliente
 	vector< Servico*> servicoCliente(string nome, unsigned int nif);

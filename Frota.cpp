@@ -39,5 +39,10 @@ void Frota::readCamioes()const
 	}
 }
 
+vector <Camiao *> Frota::getCamioes()
+{
+	return this->camioes;
+}
+
 
 

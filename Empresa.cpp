@@ -8,6 +8,7 @@
 #include <fstream>
 #include "string.h"
 #include <cstring>
+#include <iomanip>
 
 #include "Camiao.h"
 #include "Cliente.h"
@@ -16,9 +17,15 @@
 #include "Servico.h"
 #include "sequentialSearch.h"
 
+
 Empresa::Empresa()
 {
 
+}
+
+void Empresa::setFrota(Frota frota)
+{
+	this->frota = frota;
 }
 
 vector<Servico*> Empresa::getServicos() const
@@ -78,11 +85,11 @@ vector< Servico*> Empresa::returnInativos()
 	return inativos;
 }
 
-void Empresa::printServicos(vector< Servico*> s1)
+void Empresa::printServicos()
 {
-	for(unsigned int i = 0;i < s1.size(); i++)
+	for(unsigned int i = 0;i < this->servicos.size(); i++)
 	{
-		cout << s1[i]->getId() << " , " << s1[i]->getPreco() << " , " << s1[i]->getStatus() << endl;
+		cout << this->servicos[i]->getId() << " , " << this->servicos[i]->getPreco() << " , " << this->servicos[i]->getStatus() << endl;
 	}
 }
 
@@ -112,18 +119,44 @@ void Empresa::saveEmpresa()
 	cout << "Indique o nome com que quer guardar o ficheiro: " << endl;
 	getline(cin, f);
 
+	f = f + ".txt";
+
 	char* ficheiro = &f[0]; // converte para array de chars, de forma a poder ser usado pelo ofstream
 
-	ofstream output(ficheiro); // cria um ficheiro para armazenar os dados
+	ofstream output; // cria um ficheiro para armazenar os dados
+	output.open(ficheiro);
+
+	//Guardar frota
+
+	vector <Camiao *> camioes = this->frota.getCamioes();
+
+	output << "FROTA" << endl;
+
+	for (unsigned int i = 0; i < camioes.size(); i++)
+	{
+		output << camioes[i]->getCapCong() << " " << camioes[i]->getCapMax() << " " <<
+			camioes[i]->getCodigo() << endl;
+	}
+
+	//Guardar servicos e clientes
+	output << "SERVICOS" << endl;
 
 	for (unsigned int i = 0; i < this->servicos.size(); i++)
 	{
-		output << "Lista de servicos";
+		output << this->servicos[i]->getId() << " " << this->servicos[i]->getPreco() << " " << this->servicos[i]->getStatus() << endl;
+
+		vector <Cliente *> clientes = this->servicos[i]->getClientes();
+
+		output << "Clientes" << endl;
+
+		for (unsigned int j = 0; j < clientes.size(); j++)
+		{
+			output << clientes[j]->getNome() << " " << clientes[j]->getNif() << endl;
+		}
 
 	}
 
-
-
+	output.close();
 
 
 }

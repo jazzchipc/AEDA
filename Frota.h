@@ -22,6 +22,7 @@ public:
 	void adicionaCamiao(Camiao *c1);
 	void retiraCamiao(Camiao *c1);//criar exceçao
 	void readCamioes() const;
+	vector <Camiao*> getCamioes();
 
 };
 
