@@ -2,10 +2,20 @@
 #include "Camiao.h"
 #include "Frota.h"
 #include "Servico.h"
+#include "Interface.h"
 
 #include <iostream>
 
 int main()
+{
+	Empresa empresa = firstScreen();
+
+	menuPrincipal(empresa);
+
+	return 0;
+}
+
+int a()
 
 {
 	//criar empresa

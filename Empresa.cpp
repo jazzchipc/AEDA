@@ -88,11 +88,15 @@ vector< Servico*> Empresa::returnInativos()
 
 void Empresa::printServicos()
 {
-	for(unsigned int i = 0;i < this->servicos.size(); i++)
+	cout << "SERVICOS" << endl << endl;
+
+	cout << setw(4) << "ID" << setw(6) << "Preco" << setw(8) << "Status" << endl;
+	for(unsigned int i = 0; i < this->servicos.size(); i++)
 	{
-		cout << this->servicos[i]->getId() << " , " << this->servicos[i]->getPreco() << " , " << this->servicos[i]->getStatus() << endl;
+		cout << setw(4) << this->servicos[i]->getId() << setw(6) << this->servicos[i]->getPreco() << setw(8) << this->servicos[i]->printStatus << endl;
 	}
 }
+
 
 vector<Servico*> Empresa::servicoCliente(string nome, unsigned int nif) {
 	vector<Servico*> retorno;
@@ -244,23 +248,29 @@ int Empresa::loadEmpresa()
 			this->adicionaServico(servico);
 		}
 
-		getline(input, linha);
-
 		if (linha == "BEGIN_CLIENTES")
 		{
-			while (linha != "END_CLIENTES")
+			while (1)
 			{
-				string nome;
-				unsigned int nif;
-
-				getline(input, nome);
 				getline(input, linha);
 
-				istringstream copia(linha);
-				copia >> nif;
+				if (linha == "END_CLIENTES")
+					break;
+				else
+				{
+					string nome;
+					unsigned int nif;
 
-				Cliente* cliente = new Cliente(nome, nif);
-				this->servicos[indice]->adicionaCliente(cliente);
+					nome = linha;
+
+					getline(input, linha);
+
+					istringstream copia(linha);
+					copia >> nif;
+
+					Cliente* cliente = new Cliente(nome, nif);
+					this->servicos[indice]->adicionaCliente(cliente);
+				}
 			}
 
 			indice++;

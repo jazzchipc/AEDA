@@ -32,13 +32,16 @@ public:
 	~Servico() {};
 
 	//Altera status do serviço
-	void statusServico();
+	void setStatus(bool status);
 
 	//Retorna o ID do serviço
 	int getId() const;
 
 	//Retorna o status do serviço
 	bool getStatus() const;
+	
+	//Retorna uma string com "ativo" (a ser usado por clientes) ou "inativo"
+	string printStatus();
 
 	//Retorna o preço do serviço
 	float getPreco() const;

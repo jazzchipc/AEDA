@@ -19,12 +19,9 @@ Servico::Servico(int id, float preco)
 	status = false;
 }
 
-void Servico::statusServico()
+void Servico::setStatus(bool status)
 {
-	if(status)
-		status = false;
-	else
-		status = true;
+	this->status = status;
 }
 
 int Servico::getId() const
@@ -35,6 +32,14 @@ int Servico::getId() const
 bool Servico::getStatus() const
 {
 	return status;
+}
+
+string Servico::printStatus()
+{
+	if (this->status)
+		return "Ativo";
+	else
+		return "Inativo";
 }
 
 float Servico::getPreco() const
@@ -54,6 +59,8 @@ vector<Cliente*> Servico::getClientes() const
 void Servico::adicionaCliente(Cliente *j1)
 {
 	clientes.push_back(j1);
+
+	this->setStatus(true);
 }
 
 void Servico::retiraCliente(Cliente *j1)
@@ -63,6 +70,9 @@ void Servico::retiraCliente(Cliente *j1)
 		throw ClienteInexistente(j1->getNome());
 	else
 		clientes.erase(clientes.begin() + index);
+
+	if (this->clientes.size() == 0)
+		this->setStatus(false);
 }
 
 void Servico::readClientes() const

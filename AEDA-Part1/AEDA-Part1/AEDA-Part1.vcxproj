@@ -82,6 +82,7 @@
     <ClCompile Include="..\..\Cliente.cpp" />
     <ClCompile Include="..\..\Empresa.cpp" />
     <ClCompile Include="..\..\Frota.cpp" />
+    <ClCompile Include="..\..\Interface.cpp" />
     <ClCompile Include="..\..\Servico.cpp" />
     <ClCompile Include="..\..\Source.cpp" />
   </ItemGroup>
@@ -91,6 +92,7 @@
     <ClInclude Include="..\..\Empresa.h" />
     <ClInclude Include="..\..\Frota.h" />
     <ClInclude Include="..\..\includes.h" />
+    <ClInclude Include="..\..\Interface.h" />
     <ClInclude Include="..\..\sequentialSearch.h" />
     <ClInclude Include="..\..\Servico.h" />
   </ItemGroup>
