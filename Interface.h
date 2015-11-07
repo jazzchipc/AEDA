@@ -35,8 +35,12 @@ void adicionarServicos(Empresa &empresa);
 void removerServicos(Empresa &empresa);
 
 /*Editar, remover ou adicionar clientes*/
-void editarClientes(Empresa &empresa);
+void mostrarClientes(Empresa &empresa);
 
+/*Editar, remover ou adicionar camioes*/
+void editarCamiao(Empresa &empresa);
+void adicionarCamiao(Empresa &empresa);
+void removerCamiao(Empresa &empresa);
 
 
 #endif // INTERFACE_H

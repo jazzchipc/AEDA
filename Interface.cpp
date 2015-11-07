@@ -136,7 +136,7 @@ void menuPrincipal(Empresa &empresa)
 	{
 	case '1': mostrarServicos(empresa); break;
 	case '2': mostrarClientes(empresa); break;
-	//case '3': editarFrota(empresa); break;
+	case '3': mostrarFrota(empresa); break;
 	case '0': return;
 	}
 
@@ -464,5 +464,60 @@ void mostrarClientes(Empresa &empresa)
 	cin.clear();
 
 	menuPrincipal(empresa);
+
+}
+
+/*MENU DE FROTA*/
+void mostrarFrota(Empresa &empresa)
+{
+	clearScreen();
+
+	cout << "Digitar 0 retorna-o ao menu principal." << endl << endl;
+
+	empresa.getFrota().readCamioes();
+
+	cout << "Pretende (e)ditar, (a)dicionar ou (r)emover um camiao? ";
+	char opcao;
+	cin >> opcao;
+	cin.ignore(256, '\n');
+
+	while (opcao != 'e' && opcao != 'E' && opcao != 'A' && opcao != 'a' && opcao != '0' && opcao != 'r' && opcao != 'R')
+	{
+		cin.clear();
+		cout << "Por favor, utilize as letras \"E\", \"A\" ou \"R\" para especificar a acao." << endl << endl;
+
+		cout << "Pretende (e)ditar, (a)dicionar ou (r)emover um camiao? ";
+		cin >> opcao;
+		cin.ignore(256, '\n');
+	}
+
+	switch (opcao)
+	{/*
+	case 'A':
+	case 'a': adicionarCamiao(empresa); break;
+	case 'e':
+	case 'E':
+		if (empresa.getFrota().getCamioes.size() == 0)
+		{
+			cout << "\nNao ha camioes para editar. Adicione um camioes primeiro.\n";
+			this_thread::sleep_for(std::chrono::milliseconds(2000));
+			mostrarFrota(empresa);
+		}
+		else
+			editarCamiao(empresa);
+		break;
+	case 'r':
+	case 'R':
+		if (empresa.getServicos().size() == 0)
+		{
+			cout << "\nNao ha servicos para remover. Adicione um servico primeiro.\n";
+			this_thread::sleep_for(std::chrono::milliseconds(2000));
+			mostrarFrota(empresa);
+		}
+		else
+			removerCamiao(empresa);
+		break;*/
+	case '0': menuPrincipal(empresa); break;
+	}
 
 }

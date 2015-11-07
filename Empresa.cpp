@@ -48,6 +48,16 @@ vector<Servico*> Empresa::getServicos() const
 }
 
 /**
+* \brief Obtém a frota da empresa
+* \return Retorna o objeto Frota com a frota da empresa
+*/
+
+Frota Empresa::getFrota() const
+{
+	return frota;
+}
+
+/**
 * \brief Adiciona um Serviço ao vetor
 * \param s1 Serviço a adicionar
 * \return Esta função não possui retorno
@@ -154,7 +164,7 @@ void Empresa::printServicos()
 
 	cout << "SERVICOS" << endl << endl;
 
-	cout << setw(4) << "ID" << setw(10) << "Preco" << setw(9) << "Status" << endl;
+	cout << setw(4) << "ID" << setw(10) << "Preco (€)" << setw(9) << "Status" << endl;
 	for (unsigned int i = 0; i < this->servicos.size(); i++)
 	{
 		cout << setw(4) << this->servicos[i]->getId() << setw(10) << this->servicos[i]->getPreco() << setw(9) << this->servicos[i]->printStatus() << endl;

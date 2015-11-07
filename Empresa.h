@@ -32,6 +32,9 @@ public:
 	//Retorna um vetor com todos os serviços disponibilizados pela empresa
 	vector<Servico*> getServicos() const;
 
+	//Retorna a frota atual da empresa
+	Frota getFrota() const;
+
 	//Adiciona um seviço ao vetor de serviços
 	void adicionaServico(Servico *s1);
 
