@@ -13,6 +13,8 @@
 #include <vector>
 #include <string>
 
+#include "Servico.h"
+
 using namespace std;
 
 class Camiao
@@ -20,6 +22,7 @@ class Camiao
 	int codigo;
 	unsigned int cap_max;
 	bool cap_cong;
+	vector<Servico *> servicos;
 public:
 	Camiao(int codigo, unsigned int cap_max, bool cap_cong);
 	~Camiao() {};
@@ -29,6 +32,8 @@ public:
 	void updateCodigo(int codigo);
 	void updateCapMax(unsigned int cap_max);
 	void updateCapCong(bool cap_cong);
+	void adicionaServico(Servico *s1);
+	void retiraServico(Servico* s1);
 	bool operator==(const Camiao &c1);
 };
 

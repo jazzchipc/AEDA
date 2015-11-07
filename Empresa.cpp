@@ -1,9 +1,9 @@
 /*
- * Empresa.cpp
- *
- *  Created on: 27/10/2015
- *      Author: ASUS
- */
+* Empresa.cpp
+*
+*  Created on: 27/10/2015
+*      Author: ASUS
+*/
 
 #include <fstream>
 #include "string.h"
@@ -18,86 +18,155 @@
 #include "Servico.h"
 #include "sequentialSearch.h"
 
-
+/**
+* \brief Cria uma Empresa usando os parâmetros para definir as sua caracteristicas
+* \param nome Nome da Empresa
+* \return Esta função não possui retorno
+*/
 Empresa::Empresa(string nome)
 {
 	this->nome = nome;
 }
 
+/**
+* \brief Atribui um frota a uma Empresa
+* \param frota Frota a atribuir
+* \return Esta função não possui retorno
+*/
 void Empresa::setFrota(Frota frota)
 {
 	this->frota = frota;
 }
 
+/**
+* \brief Obtém o vetor que guarda todos os Serviços da Empresa
+* \return Retorna o vetor
+*/
 vector<Servico*> Empresa::getServicos() const
 {
 	return servicos;
 }
 
+/**
+* \brief Adiciona um Serviço ao vetor
+* \param s1 Serviço a adicionar
+* \return Esta função não possui retorno
+*/
 void Empresa::adicionaServico(Servico *s1)
 {
 	servicos.push_back(s1);
 }
 
+/**
+* \brief Retira um Serviço do vetor, caso este lá esteja, caso contrário lança a excessão ClienteInexistente
+* \param s1 Serviço a retirar
+* \return Esta função não possui retorno
+*/
 void Empresa::retiraServico(Servico *s1)
 {
 	int index = sequentialSearch(servicos, s1);
-	if(index == -1)
+	if (index == -1)
 		throw ServicoInexistente(s1->getId());
 	else
 		servicos.erase(servicos.begin() + index);
 }
 
+/**
+* \brief Lê todas as informações dos serviços e dos clientes que usufruem deles
+* \return Esta função não possui retorno
+*/
 void Empresa::readServicos() const
 {
-	for(unsigned int i = 0; i < getServicos().size(); i++)
+	for (unsigned int i = 0; i < getServicos().size(); i++)
 	{
 		cout << getServicos()[i]->getPreco() << endl;
-		for(unsigned int j = 0; j < getServicos()[i]->getClientes().size(); j++)
+		for (unsigned int j = 0; j < getServicos()[i]->getClientes().size(); j++)
 		{
 			cout << getServicos()[i]->getClientes()[j]->getNome() << endl;
 		}
 	}
 }
 
+/**
+* \brief Cria um vetor com todos os serviços ativos
+* \return Retorna o vetor
+*/
 vector< Servico*> Empresa::returnAtivos()
 {
 	vector< Servico*> ativos;
 
-	for(unsigned int i = 0 ; i < servicos.size() ; i++)
+	for (unsigned int i = 0; i < servicos.size(); i++)
 	{
-		if(servicos[i]->getStatus() == true)
+		if (servicos[i]->getStatus() == true)
 			ativos.push_back(servicos[i]);
 	}
 
 	return ativos;
 }
 
+/**
+* \brief Cria um vetor com todos os serviços inativos
+* \return Retorna o vetor
+*/
 vector< Servico*> Empresa::returnInativos()
 {
 	vector< Servico*> inativos;
 
-	for(unsigned int i = 0; i < servicos.size() ; i++)
+	for (unsigned int i = 0; i < servicos.size(); i++)
 	{
-		if(servicos[i]->getStatus() == false)
+		if (servicos[i]->getStatus() == false)
 			inativos.push_back(servicos[i]);
 	}
 
 	return inativos;
 }
 
+/**
+* \brief Imprime todas as informações dos serviços do vetor
+* \return Esta função não possui retorno
+*/
 void Empresa::printServicos()
 {
+	
+	/*Algoritmo para ordenar o vetor por ordem crescente do código identificador.
+	Foi feito depois do Doxygen, pelo que não é um função à parte.
+	Mecanismo Bubblesort.*/
+
+	int n = this->servicos.size();
+
+	while (1)
+	{
+		bool swap = false;
+
+		for (unsigned int i = 1; i < n; i++)
+		{
+			if (servicos[i - 1]->getId() > servicos[i]->getId())
+			{
+				iter_swap(servicos.begin() + i - 1, servicos.begin() + i);
+				swap = true;
+			}
+		}
+
+		n--;
+		if (!swap)
+			break;
+	}
+
 	cout << "SERVICOS" << endl << endl;
 
 	cout << setw(4) << "ID" << setw(10) << "Preco" << setw(9) << "Status" << endl;
-	for(unsigned int i = 0; i < this->servicos.size(); i++)
+	for (unsigned int i = 0; i < this->servicos.size(); i++)
 	{
 		cout << setw(4) << this->servicos[i]->getId() << setw(10) << this->servicos[i]->getPreco() << setw(9) << this->servicos[i]->printStatus() << endl;
 	}
 }
 
-
+/**
+* \brief Cria um vetor com todos os serviços cujo cliente identificado pelos parâmetros
+* \param nome Nome do Cliente a pesquisar
+* \param nif NIF do Cliente a pesquisar
+* \return Retorna o vetor criado
+*/
 vector<Servico*> Empresa::servicoCliente(string nome, unsigned int nif) {
 	vector<Servico*> retorno;
 	vector<Cliente*> c1;
@@ -117,6 +186,10 @@ vector<Servico*> Empresa::servicoCliente(string nome, unsigned int nif) {
 	return retorno;
 }
 
+/**
+* \brief Guarda um Empresa, e consequentemente todas as suas informações, num ficheiro a especificar
+* \return Esta função não possui retorno
+*/
 void Empresa::saveEmpresa()
 {
 	string f = this->nome;
@@ -170,10 +243,12 @@ void Empresa::saveEmpresa()
 
 
 /*LISTA DE ERROS
- * -1 : não abriu o ficheiro com o nome dado
- * */
+* -1 : não abriu o ficheiro com o nome dado
+* */
 
-
+/**
+* \brief Carrega uma Empresa criada e guardada previamente num ficheiro a especificar
+* \return Retorna 0;*/
 int Empresa::loadEmpresa()
 
 {

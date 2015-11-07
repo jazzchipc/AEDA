@@ -1,4 +1,6 @@
 #include "Interface.h"
+#include "sequentialSearch.h"
+
 #include <cstdlib>
 #include <chrono>
 #include <thread>
@@ -29,6 +31,8 @@ void printTitulo()
 )EOF");
 }
 
+string nomeEmpresa;
+
 Empresa firstScreen()
 {
 	printTitulo();
@@ -46,7 +50,7 @@ Empresa firstScreen()
 		cin.clear();
 		cout << "Se quiser gerar um ficheiro digite \"g\", se quiser carregar digite \"c\"" << endl << endl;
 
-		cout << "Deseja (g)erar um novo ficheiro de empresa ou (c)arregar um já existente? ";
+		cout << "Deseja (g)erar um novo ficheiro de empresa ou (c)arregar um ja existente? ";
 		cin.get(modo);
 		cin.ignore(256, '\n');
 	}
@@ -66,8 +70,6 @@ Empresa gerar()
 	clearScreen();
 
 	cout << "GERAR FICHEIRO DE EMPRESA" << endl << endl;
-
-	string nomeEmpresa;
 
 	cout << "Nome da empresa: ";
 	getline(cin, nomeEmpresa);
@@ -89,8 +91,6 @@ Empresa carregar()
 
 	cout << "CARREGAR FICHEIRO DE EMPRESA" << endl << endl;
 
-	string nomeEmpresa;
-
 	cout << "Nome da empresa: ";
 	getline(cin, nomeEmpresa);
 	cout << endl << endl;
@@ -108,7 +108,7 @@ void menuPrincipal(Empresa &empresa)
 
 	cout << "Digitar 0 termina o programa." << endl << endl;
 
-	cout << "MENU PRINCIPAL" << endl << endl;
+	cout << "MENU PRINCIPAL - " << nomeEmpresa << endl << endl;
 
 	cout << "1 - Servicos" << endl;
 	cout << "2 - Clientes" << endl;
@@ -119,8 +119,9 @@ void menuPrincipal(Empresa &empresa)
 	cout << "Opcao: ";
 	cin >> opcao;
 	cin.ignore(256, '\n');
+	cin.clear();
 
-	while (opcao != '1' && opcao != '2' && opcao != '3')
+	while (opcao != '1' && opcao != '2' && opcao != '3' && opcao !='0')
 	{
 		cin.clear();
 		cout << "Por favor digite o numero daquilo a que pretende aceder." << endl << endl;
@@ -128,12 +129,13 @@ void menuPrincipal(Empresa &empresa)
 		cout << "Opcao: ";
 		cin >> opcao;
 		cin.ignore(256, '\n');
+		cin.clear();
 	}
 
 	switch (opcao)
 	{
 	case '1': mostrarServicos(empresa); break;
-	//case '2': editarClientes(empresa); break;
+	case '2': mostrarClientes(empresa); break;
 	//case '3': editarFrota(empresa); break;
 	case '0': return;
 	}
@@ -141,7 +143,6 @@ void menuPrincipal(Empresa &empresa)
 }
 
 /*MENU DE SERVIÇOS*/
-
 void mostrarServicos(Empresa &empresa)
 {
 	clearScreen();
@@ -150,7 +151,7 @@ void mostrarServicos(Empresa &empresa)
 
 	empresa.printServicos();
 
-	cout << "Pretende (e)ditar ou (a)dicionar um servico? ";
+	cout << "Pretende (e)ditar, (a)dicionar ou (r)emover um servico? ";
 	char opcao;
 	cin >> opcao;
 	cin.ignore(256, '\n');
@@ -158,7 +159,7 @@ void mostrarServicos(Empresa &empresa)
 	while (opcao != 'e' && opcao != 'E' && opcao != 'A' && opcao != 'a' && opcao != '0' && opcao != 'r' && opcao != 'R')
 	{
 		cin.clear();
-		cout << "Por favor, utilize as letras \"A\" ou \"E\" para especificar a acao." << endl << endl;
+		cout << "Por favor, utilize as letras \"E\", \"A\" ou \"R\" para especificar a acao." << endl << endl;
 
 		cout << "Pretende (e)ditar, (a)dicionar ou (r)emover um servico? ";
 		cin >> opcao;
@@ -168,16 +169,35 @@ void mostrarServicos(Empresa &empresa)
 	switch (opcao)
 	{
 	case 'A':
-	//case 'a': adicionarServicos(empresa); break;
+	case 'a': adicionarServicos(empresa); break;
 	case 'e':
-	case 'E': editarServicos(empresa); break;
+	case 'E': 
+		if (empresa.getServicos().size() == 0)
+		{
+			cout << "\nNao ha servicos para editar. Adicione um servico primeiro.\n";
+			this_thread::sleep_for(std::chrono::milliseconds(2000));
+			mostrarServicos(empresa);
+		}
+		else
+			editarServicos(empresa); 
+		break;
 	case 'r':
-	// case 'R': removerServicos(empresa); break;
+	case 'R': 
+		if (empresa.getServicos().size() == 0)
+		{
+			cout << "\nNao ha servicos para remover. Adicione um servico primeiro.\n";
+			this_thread::sleep_for(std::chrono::milliseconds(2000));
+			mostrarServicos(empresa);
+		}
+		else
+			removerServicos(empresa);
+		break;
 	case '0': menuPrincipal(empresa); break;
 	}
 
 }
 
+/*MENU DE EDIÇÃO DE SERVIÇOS*/
 void editarServicos(Empresa &empresa)
 {
 	int id;
@@ -217,7 +237,7 @@ void editarServicos(Empresa &empresa)
 		cin.clear();
 		cout << "Por favor, utilize as letras \"P\", \"R\" ou \"A\" para especificar a acao." << endl << endl;
 
-		cout << "Pretende (e)ditar ou (a)dicionar um servico? ";
+		cout << "Pretende mudar o (p)reco, (r)etirar ou (a)dicionar um cliente? ";
 		cin >> opcao;
 		cin.ignore(256, '\n');
 	}
@@ -251,7 +271,7 @@ void editarServicos(Empresa &empresa)
 		{
 			string nome;
 			
-			cout << "Escreva o nome do novo cliente: ";
+			cout << "\nEscreva o nome do novo cliente: ";
 			getline(cin, nome);
 
 			string input;
@@ -277,28 +297,39 @@ void editarServicos(Empresa &empresa)
 
 		else
 		{
-			cout << "LISTA DE CLIENTES" << endl << endl;
-			empresa.getServicos()[index]->readClientes();
-
-			string input;
-			int nif;
-
-			while (1) 
+			if (empresa.getServicos()[index]->getClientes().size() == 0)
 			{
-				cout << "Insira o NIF do cliente a remover: ";
-				getline(cin, input);
+				cout << "Este servico nao tem clientes." << endl << endl;
+				this_thread::sleep_for(std::chrono::milliseconds(2000));
 
-				stringstream myStream(input);
-				if (myStream >> nif)
-					break;
-				cout << "Insira um NIF valido, por favor." << endl;
 			}
 
-			Cliente* clienteARemover = new Cliente("", nif);
+			else
+			{
+				cout << "LISTA DE CLIENTES" << endl << endl;
 
-			empresa.getServicos()[index]->retiraCliente(clienteARemover);
+				empresa.getServicos()[index]->readClientes();
 
-			empresa.saveEmpresa();
+				string input;
+				int nif;
+
+				while (1)
+				{
+					cout << "Insira o NIF do cliente a remover: ";
+					getline(cin, input);
+
+					stringstream myStream(input);
+					if (myStream >> nif)
+						break;
+					cout << "Insira um NIF valido, por favor." << endl;
+				}
+
+				Cliente* clienteARemover = new Cliente("", nif);
+
+				empresa.getServicos()[index]->retiraCliente(clienteARemover);
+
+				empresa.saveEmpresa();
+			}
 
 		}
 	}
@@ -307,7 +338,131 @@ void editarServicos(Empresa &empresa)
 
 }
 
+/*MENU DE ADIÇÃO DE SERVIÇOS*/
 void adicionarServicos(Empresa &empresa)
 {
+	int id;
+	float preco;
+	string input;
+
+	while (1)
+	{
+		cout << "Preco do novo servico: ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> preco && preco >= 0)
+			break;
+		cout << "Insira um preco valido, por favor." << endl;
+	}
+
+	while (1)
+	{
+		cout << "ID do novo servico: ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> id)
+			break;
+		cout << "Insira um ID valido, por favor." << endl;
+	}
+
+	Servico* servico = new Servico (id, preco);
+
+	if (sequentialSearch(empresa.getServicos(), servico) != -1)
+	{
+		cout << "\nJa existe um servico com esse ID. Volte a adicionar um servico com ID diferente.\n";
+		this_thread::sleep_for(std::chrono::milliseconds(2000));
+		adicionarServicos(empresa);
+	}
+	else
+	{
+		empresa.adicionaServico(servico);
+		empresa.saveEmpresa();
+		mostrarServicos(empresa);
+	}
+}
+
+/*MENU DE REMOÇÃO DE SERVIÇOS*/
+void removerServicos(Empresa &empresa)
+{
+	int id;
+	string input;
+
+	while (1)
+	{
+		cout << "\nID do servico a remover: ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> id)
+			break;
+		cout << "Insira um ID valido, por favor." << endl;
+	}
+
+	Servico* servico = new Servico(id, 0);
+
+	try
+	{
+		empresa.retiraServico(servico);
+	}
+
+	catch (ServicoInexistente& s)
+	{
+		cout << "O servico com o ID " << s.getCodigo() << " nao existe. Insira um ID valido.\n";
+		removerServicos(empresa);
+	}
+
+	empresa.saveEmpresa();
+	mostrarServicos(empresa);
+
+}
+
+
+/*MENU DE CLIENTES*/
+void mostrarClientes(Empresa &empresa)
+{
+	clearScreen();
+
+	empresa.printServicos();
+
+	int id;
+
+	cout << endl << "ID do servico do qual pretende visualizar os clientes: ";
+	cin >> id;
+	cin.clear();
+	cin.ignore(10000, '\n');
+
+	int index = -1;
+
+	for (unsigned int i = 0; i < empresa.getServicos().size(); i++)
+	{
+		if (empresa.getServicos()[i]->getId() == id)
+			index = i;
+	}
+
+	while (index == -1)
+	{
+		cout << "ID inválido" << endl << endl;
+		cout << endl << "ID do servico do qual pretende visualizar os clientes: ";
+		cin >> id;
+
+		for (unsigned int i = 0; i < empresa.getServicos().size(); i++)
+		{
+			if (empresa.getServicos()[i]->getId() == id)
+				index = i;
+		}
+	}
+
+	clearScreen();
+
+	empresa.getServicos()[index]->readClientes();
+
+	cout << "\nQuando acabar a leitura prima ENTER.";
+	string lixo;
+	getline(cin, lixo);
+	cin.clear();
+
+	menuPrincipal(empresa);
 
 }
