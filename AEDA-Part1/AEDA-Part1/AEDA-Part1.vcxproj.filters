@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{4ad319ce-4ebb-4343-93ee-2cdd92744d4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Camiao.cpp">
@@ -34,7 +37,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Interface.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Interface</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,7 +63,7 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Interface.h">
-      <Filter>Source Files</Filter>
+      <Filter>Interface</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -41,3 +41,10 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+#VisualStudio
+*.sdf
+*.opensdf
+*.suo
+*.vcxproj.user
+

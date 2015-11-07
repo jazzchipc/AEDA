@@ -67,7 +67,7 @@ void Servico::retiraCliente(Cliente *j1)
 {
 	int index = sequentialSearch(clientes, j1);
 	if(index == -1)
-		throw ClienteInexistente(j1->getNome());
+		throw ClienteInexistente(j1->getNif());
 	else
 		clientes.erase(clientes.begin() + index);
 
@@ -77,10 +77,19 @@ void Servico::retiraCliente(Cliente *j1)
 
 void Servico::readClientes() const
 {
+	cout << setw(20) << "Nome" << setw(15) << "NIF" << endl;
 	for(unsigned int i = 0; i < clientes.size(); i++)
 	{
-		cout << clientes[i]->getNome() << " " << clientes[i]->getNif() << endl;
+		cout << setw(20) << clientes[i]->getNome() << setw(15) << clientes[i]->getNif() << endl;
 	}
+}
+
+bool Servico::operator==(const Servico& s1)
+{
+	if (s1.id == this->id)
+		return true;
+	else
+		return false;
 }
 
 

@@ -11,11 +11,15 @@
 #include "includes.h"
 
 template <class Comparable>
-int sequentialSearch(const vector<Comparable> &v, Comparable x)
+int sequentialSearch(const vector<Comparable* > &v, Comparable* x)
 {
-    for (unsigned int i = 0; i < v.size(); i++)
-        if (v[i] == x)
-           return i;   // encontrou
+	for (unsigned int i = 0; i < v.size(); i++)
+	{
+		Comparable a(*v[i]);
+		Comparable b(*x);
+		if (a == b)
+			return i;   // encontrou
+	}
     return -1;     // não encontrou
 }
 

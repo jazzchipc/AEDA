@@ -24,10 +24,17 @@ Empresa carregar();
 /*Menu principal*/
 void menuPrincipal(Empresa &empresa);
 
-/*Opções de edição*/
-void editarClientes(Empresa &empresa);
+/*Menus específicos*/
+void mostrarClientes(Empresa &empresa);
+void mostrarServicos(Empresa &empresa);
+void mostrarFrota(Empresa &empresa);
+
+/*Editar, remover ou adicionar serviços*/
 void editarServicos(Empresa &empresa);
-void editarFrota(Empresa &empresa);
+void adicionarServicos(Empresa &empresa);
+void removerServicos(Empresa &empresa);
+
+
 
 #endif // INTERFACE_H
 

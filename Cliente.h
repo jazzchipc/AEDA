@@ -26,16 +26,16 @@ public:
 	unsigned int getNif() const;
 	void updateNome(string nome);
 	void updateNif(unsigned int nif);
-	bool operator==(Cliente c1);
+	bool operator==(const Cliente &c1);
 
 };
 
 class ClienteInexistente
 {
-	string nome;
+	int nif;
 public:
-	string getNome() { return nome; };
-	ClienteInexistente(string nome) : nome(nome) {};
+	int getNif() { return nif; };
+	ClienteInexistente(int nif) : nif(nif) {};
 };
 
 

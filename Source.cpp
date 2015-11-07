@@ -3,8 +3,39 @@
 #include "Frota.h"
 #include "Servico.h"
 #include "Interface.h"
+#include "sequentialSearch.h"
 
 #include <iostream>
+
+//IGNORAR FUNÇÃO TESTE
+int m()
+{
+	Cliente* cliente1 = new Cliente ("Jose Gomes", 15511);
+	Cliente* cliente2 = new Cliente ("Antonio Martins", 15511);
+
+	Cliente c1(*cliente1);
+	Cliente c2(*cliente2);
+
+	vector <Cliente*> v;
+	v.push_back(cliente1);
+	v.push_back(cliente2);
+
+	Cliente* cliente3 = new Cliente("Jose Gomes", 15511);
+
+	int i = sequentialSearch(v, cliente3);
+
+	if (*cliente1 == *cliente2)
+		cout << "true";
+	else
+		cout << "false";
+
+	cout << i;
+
+	char c;
+	cin >> c;
+
+	return 0;
+}
 
 int main()
 {
@@ -15,6 +46,7 @@ int main()
 	return 0;
 }
 
+//IGNORAR FUNÇÃO TESTE
 int a()
 
 {

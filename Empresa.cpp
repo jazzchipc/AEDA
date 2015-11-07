@@ -90,10 +90,10 @@ void Empresa::printServicos()
 {
 	cout << "SERVICOS" << endl << endl;
 
-	cout << setw(4) << "ID" << setw(6) << "Preco" << setw(8) << "Status" << endl;
+	cout << setw(4) << "ID" << setw(10) << "Preco" << setw(9) << "Status" << endl;
 	for(unsigned int i = 0; i < this->servicos.size(); i++)
 	{
-		cout << setw(4) << this->servicos[i]->getId() << setw(6) << this->servicos[i]->getPreco() << setw(8) << this->servicos[i]->printStatus << endl;
+		cout << setw(4) << this->servicos[i]->getId() << setw(10) << this->servicos[i]->getPreco() << setw(9) << this->servicos[i]->printStatus() << endl;
 	}
 }
 

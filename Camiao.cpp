@@ -51,6 +51,14 @@ void Camiao::updateCapCong(bool cap_cong)
 	this -> cap_cong = cap_cong;
 }
 
+bool Camiao::operator==(const Camiao &c1)
+{
+	if (c1.codigo == this->codigo)
+		return true;
+	else
+		return false;
+}
+
 
 
 

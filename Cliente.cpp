@@ -38,9 +38,9 @@ void Cliente::updateNif(unsigned int nif)
 	this -> nif = nif;
 }
 
-bool Cliente::operator==(Cliente c1)
+bool Cliente::operator==(const Cliente &c1)
 {
-	if ((c1.nome == nome) && (c1.nif == nif))
+	if (c1.nif == this->nif)
 		return true;
 	else
 		return false;

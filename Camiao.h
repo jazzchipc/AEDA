@@ -29,6 +29,7 @@ public:
 	void updateCodigo(int codigo);
 	void updateCapMax(unsigned int cap_max);
 	void updateCapCong(bool cap_cong);
+	bool operator==(const Camiao &c1);
 };
 
 class CamiaoInexistente

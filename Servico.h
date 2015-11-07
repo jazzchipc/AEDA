@@ -61,6 +61,9 @@ public:
 	//Altera o preço do serviço
 	void updatePreco(float preco);
 
+	//Retorna true se dois serviços tiverem o mesmo ID
+	bool operator==(const Servico& s1);
+
 };
 
 class ServicoInexistente
