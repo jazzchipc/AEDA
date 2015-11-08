@@ -23,7 +23,8 @@ void primaEnter()
 	getline(cin, enter);
 }
 
-void printTitulo()
+// DESCOMENTAR SE ESTIVER EM VISUAL STUDIO
+/*void printTitulo()
 
 {
 	printf(R"EOF(
@@ -36,13 +37,16 @@ void printTitulo()
                         | |                            
                         |_|                  
 )EOF");
-}
+}*/
 
 string nomeEmpresa;
 
 Empresa firstScreen()
 {
-	printTitulo();
+	cout << "Transportex 1.0.0" << endl;
+
+	// DESCOMENTAR SE ESTIVER EM VISUAL STUDIO 
+	// printTitulo();
 
 	cout << endl << endl;
 
@@ -68,6 +72,7 @@ Empresa firstScreen()
 	case 'G':	return gerar(); break;
 	case 'c':
 	case 'C':	return carregar(); break;
+	default: break;
 	}
 
 }
@@ -637,7 +642,6 @@ void adicionarCamiao(Empresa &empresa)
 	int codigo;
 	unsigned int capMax;
 	bool capCong, capPerig;
-	float taxa;
 
 	string input;
 
