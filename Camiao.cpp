@@ -23,13 +23,12 @@
 * \param taxa Custo da utilização do camião por cada quilómetro percorrido (€/km)
 * \return Esta função não possui retorno
 */
-Camiao::Camiao(int codigo, unsigned int cap_max, bool cap_cong, bool cap_perig, float taxa)
+Camiao::Camiao(int codigo, unsigned int cap_max, bool cap_cong, bool cap_perig)
 {
 	this->codigo = codigo;
 	this->cap_max = cap_max;
 	this->cap_cong = cap_cong;
 	this->cap_perig = cap_perig;
-	this->taxa = taxa;
 }
 
 /**
@@ -66,15 +65,6 @@ bool Camiao::getCapPerig() const
 int Camiao::getCodigo() const
 {
 	return codigo;
-}
-
-/**
-* \brief Obtém a taxa de utilização de um Camião
-* \return Retorna essa taxa
-*/
-float Camiao::getTaxa() const
-{
-	return taxa;
 }
 
 /**

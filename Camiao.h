@@ -23,16 +23,15 @@ class Camiao
 	unsigned int cap_max;
 	bool cap_cong;
 	bool cap_perig;
-	float taxa;
+	
 	vector<Servico *> servicos;
 public:
-	Camiao(int codigo, unsigned int cap_max, bool cap_cong, bool cap_perig, float taxa);
+	Camiao(int codigo, unsigned int cap_max, bool cap_cong, bool cap_perig);
 	~Camiao() {};
 	unsigned int getCapMax() const;
 	bool getCapCong() const;
 	bool getCapPerig() const;
 	int getCodigo() const;
-	float getTaxa() const;
 	vector <Servico* > getServicos() const;
 
 	void updateCodigo(int codigo);

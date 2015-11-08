@@ -213,7 +213,6 @@ void Empresa::saveEmpresa()
 
 	//Guardar frota
 
-	output << this->custoCap << endl;
 	output << this->custoDist << endl;
 	output << this->custoCong << endl;
 	output << this->custoPerig << endl;
@@ -225,7 +224,7 @@ void Empresa::saveEmpresa()
 	for (unsigned int i = 0; i < camioes.size(); i++)
 	{
 		output << camioes[i]->getCapCong() << ";" << camioes[i]->getCapPerig() << ";" << camioes[i]->getCapMax() << ";" <<
-			camioes[i]->getCodigo() << ";" << camioes[i]->getTaxa() << endl;
+			camioes[i]->getCodigo() << ";" << endl;
 
 		for (unsigned int j = 0; j < camioes[i]->getServicos().size(); j++)
 		{
@@ -296,10 +295,6 @@ int Empresa::loadEmpresa()
 	// Adicionar taxas e camiões à frota
 
 	getline(input, linha);
-	istringstream copia1(linha);
-	copia1 >> this->custoCap; 
-
-	getline(input, linha);
 	istringstream copia0(linha);
 	copia0 >> this->custoDist;
 
@@ -315,10 +310,16 @@ int Empresa::loadEmpresa()
 
 	getline(input, linha);
 
+	vector <vector <int>> ids;
+
 	if (linha == "BEGIN_FROTA")
 	{
 		while (1)
 		{
+			int cam = 0;
+
+			ids.resize(cam + 1);
+
 			getline(input, linha);
 
 			if (linha == "END_FROTA")
@@ -328,12 +329,11 @@ int Empresa::loadEmpresa()
 
 			int codigo, id;
 			unsigned int cap_max;
-			float taxa;
 			bool cap_cong, cap_perig;
 
-			copia >> cap_cong >> lixo >> cap_perig >> lixo >> cap_max >> lixo >> codigo >> lixo >> taxa;
+			copia >> cap_cong >> lixo >> cap_perig >> lixo >> cap_max >> lixo >> codigo >> lixo;
 
-			Camiao* camiao = new Camiao (codigo, cap_max, cap_cong, cap_perig, taxa);
+			Camiao* camiao = new Camiao (codigo, cap_max, cap_cong, cap_perig);
 
 			getline(input, linha);
 
@@ -341,11 +341,10 @@ int Empresa::loadEmpresa()
 
 			while (copia1 >> id >> lixo)
 			{
-				Servico* s1 = new Servico(id, 0, 0);
-				int indice = sequentialSearch(this->servicos, s1);
-
-				camiao->adicionaServico(this->servicos[indice]);
+				ids[cam].push_back(id);
 			}
+
+			int indice;
 
 			frota.adicionaCamiao(camiao);
 		}
@@ -411,6 +410,17 @@ int Empresa::loadEmpresa()
 
 	input.close();
 
+	for (unsigned int i = 0; i < ids.size(); i++)
+	{
+		for (unsigned int j = 0; j < ids[i].size(); j++)
+		{
+			Servico* s1 = new Servico(ids[i][j], 0, 0);
+			indice = sequentialSearch(this->servicos, s1);
+
+			this->getFrota().getCamioes()[i]->adicionaServico(this->servicos[indice]);
+		}
+	}
+
 	return 0;
 }
 
@@ -434,15 +444,6 @@ float Empresa::getCustoPerig() const
 	return custoPerig;
 }
 
-/**
-*\brief Obtém a taxa cobrada por cada kg de um camião usado num serviço definido pela empresa
-* \return Retorna o valor da taxa em €/kg
-*/
-
-float Empresa::getCustoCap() const
-{
-	return custoCap;
-}
 
 /**
 *\brief Obtém a taxa cobrada por cada km percorrido por um camião da empresa
@@ -454,16 +455,6 @@ float Empresa::getCustoDist() const
 	return custoDist;
 }
 
-/**
-*\brief Altera o custo da taxa cobrada por cada kg de um camião
-*\param n Nova taxa
-* \return Esta função não poussui retorno
-*/
-
-void Empresa::setCustoCap(float n)
-{
-	this->custoCap = n;
-}
 
 /**
 *\brief Altera o custo extra de um camião com capacidade de congelação

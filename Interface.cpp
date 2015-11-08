@@ -78,19 +78,7 @@ Empresa gerar()
 	Empresa empresa(nomeEmpresa);
 
 	string input;
-	float custoCap, custoDist, custoCong, custoPerig;
-
-	while (1)
-	{
-		cout << "Taxa que a empresa vai cobrar por cada kq de um camiao: ";
-		getline(cin, input);
-		cout << endl;
-
-		stringstream myStream(input);
-		if (myStream >> custoCap && custoCap >= 0)
-			break;
-		cout << "Insira uma taxa válida" << endl;
-	}
+	float custoDist, custoCong, custoPerig;
 
 	while (1)
 	{
@@ -128,7 +116,6 @@ Empresa gerar()
 		cout << "Insira um custo valido." << endl;
 	}
 
-	empresa.setCustoCap(custoCap);
 	empresa.setCustoCong(custoCong);
 	empresa.setCustoPerig(custoPerig);
 	empresa.setCustoDist(custoDist);
@@ -147,15 +134,21 @@ Empresa carregar()
 {
 	clearScreen();
 
-	cout << "CARREGAR FICHEIRO DE EMPRESA" << endl << endl;
+	std::cout << "CARREGAR FICHEIRO DE EMPRESA" << endl << endl;
 
-	cout << "Nome da empresa: ";
-	getline(cin, nomeEmpresa);
-	cout << endl << endl;
+	std::cout << "Nome da empresa: ";
+	std::getline(std::cin, nomeEmpresa);
+	std::cout << endl << endl;
 
 	Empresa empresa(nomeEmpresa);
 
-	empresa.loadEmpresa();
+	if (empresa.loadEmpresa() == -1)
+	{
+		std::cout << "Nao ha nenhum ficheiro para essa empresa. Por favor crie um.\n";
+		this_thread::sleep_for(std::chrono::seconds(2));
+		clearScreen();
+		firstScreen();
+	}
 
 	return empresa;
 }
@@ -551,7 +544,6 @@ void mostrarFrota(Empresa &empresa)
 
 	cout << "Digitar 0 retorna-o ao menu principal." << endl << endl;
 
-	cout << "Taxa por kq de carga: " << empresa.getCustoCap() << " euros" << endl;
 	cout << "Taxa por km percorrido: " << empresa.getCustoDist() << " euros" << endl;
 	cout << "Custo extra por transporte de carga congelada: " << empresa.getCustoCong() << " euros" << endl;
 	cout << "Custo extra por transporte de cargas perigosas: " << empresa.getCustoPerig() << " euros" << endl << endl;
@@ -572,7 +564,7 @@ void mostrarFrota(Empresa &empresa)
 			Servico* servico = camioesFrota[i]->getServicos()[j];
 
 			custo = custo + servico->getPreco() * camioesFrota[i]->getCapMax();
-			custo = custo + servico->getDistancia() * camioesFrota[i]->getTaxa();
+			custo = custo + servico->getDistancia() * empresa.getCustoDist();
 			
 			if (camioesFrota[i]->getCapCong())
 				custo = custo + empresa.getCustoCong();
@@ -604,9 +596,9 @@ void mostrarFrota(Empresa &empresa)
 	{
 	case 'A':
 	case 'a': adicionarCamiao(empresa); break;
-	/*case 'e':
+	case 'e':
 	case 'E':
-		if (empresa.getFrota().getCamioes.size() == 0)
+		if (empresa.getFrota().getCamioes().size() == 0)
 		{
 			cout << "\nNao ha camioes para editar. Adicione um camioes primeiro.\n";
 			this_thread::sleep_for(std::chrono::milliseconds(2000));
@@ -617,15 +609,8 @@ void mostrarFrota(Empresa &empresa)
 		break;
 	case 'r':
 	case 'R':
-		if (empresa.getServicos().size() == 0)
-		{
-			cout << "\nNao ha servicos para remover. Adicione um servico primeiro.\n";
-			this_thread::sleep_for(std::chrono::milliseconds(2000));
-			mostrarFrota(empresa);
-		}
-		else
 			removerCamiao(empresa);
-		break;*/
+		break;
 	case '0': menuPrincipal(empresa); break;
 	}
 
@@ -685,19 +670,7 @@ void adicionarCamiao(Empresa &empresa)
 		cout << "Utilize um bool: true ou false." << endl;
 	}
 
-
-	while (1)
-	{
-		cout << "Qual a taxa de utilizacao do camiao por quilometro? ";
-		getline(cin, input);
-
-		stringstream myStream(input);
-		if (myStream >> taxa && taxa >= 0)
-			break;
-		cout << "Insira uma taxa válida." << endl;
-	}
-
-	Camiao* camiao = new Camiao(codigo, capMax, capCong, capPerig, taxa);
+	Camiao* camiao = new Camiao(codigo, capMax, capCong, capPerig);
 
 	if (sequentialSearch(empresa.getFrota().getCamioes(), camiao) != -1)
 	{
@@ -734,4 +707,126 @@ void editarCamiao(Empresa &empresa)
 		cout << "Insira um codigo valido, por favor." << endl;
 	}
 
+	Camiao* c1 = new Camiao (codigo, 0, 0, 0);
+
+	while (sequentialSearch(empresa.getFrota().getCamioes(), c1) == -1) // se não encontra
+	{
+		cout << "Codigo de camiao nao encontrado." << endl;
+		while (1)
+		{
+			cout << "Codigo do camiao que pretende editar: ";
+			getline(cin, input);
+
+			stringstream myStream(input);
+			if (myStream >> codigo)
+				break;
+			cout << "Insira um codigo valido, por favor." << endl;
+		}
+	}
+
+
+	c1 = empresa.getFrota().getCamioes()[sequentialSearch(empresa.getFrota().getCamioes(), c1)];
+
+	cout << endl << endl << "CAMIAO - " << c1->getCodigo() << endl << endl;
+
+	cout << setw(10) << "Codigo" << setw(12) << "N Clientes" << endl;
+
+	for (unsigned int i = 0; i < c1->getServicos().size(); i++)
+	{
+		cout << setw(10) << c1->getServicos()[i]->getId() << setw(12) << c1->getServicos()[i]->getClientes().size() << endl;
+	}
+
+	int id;
+
+	empresa.printServicos();
+
+	while (1)
+	{
+		cout << "ID do servico que pretende adicionar/remover: ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> id)
+			break;
+		cout << "Insira um ID valido, por favor." << endl;
+	}
+
+	Servico* s1 = new Servico(id, 0, 0);
+
+	int index = sequentialSearch(empresa.getServicos(), s1);
+
+	while (index == -1) // se não encontra
+	{
+		cout << "Esse servico nao existe." << endl;
+		while (1)
+		{
+			cout << "ID do servico que pretende alterar: ";
+			getline(cin, input);
+
+			stringstream myStream(input);
+			if (myStream >> id)
+				break;
+			cout << "Insira um ID valido, por favor." << endl;
+		}
+
+		int index = sequentialSearch(empresa.getServicos(), s1);
+	}
+
+	char opcao;
+
+	while (1)
+	{
+		cout << endl << "Pretende (r)emover ou (a)dicionar o servico? ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> opcao && (opcao == 'r' || opcao == 'R' || opcao == 'a' || opcao == 'A'))
+			break;
+		cout << "Insira uma opcao valida, por favor." << endl;
+	}
+
+	switch (opcao)
+	{
+	case 'r':
+	case 'R':  c1->retiraServico(empresa.getServicos()[index]); break;
+	case 'a':
+	case 'A': c1->adicionaServico(empresa.getServicos()[index]); break;
+	}
+
+	empresa.saveEmpresa();
+	mostrarFrota(empresa);
+}
+
+void removerCamiao(Empresa &empresa)
+{
+	string input;
+
+	int codigo;
+
+	while (1)
+	{
+		cout << "Codigo do camiao a remover: ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> codigo)
+			break;
+		cout << "Insira um codigo valido, por favor." << endl;
+	}
+
+	Camiao* c1 = new Camiao(codigo, 0, 0, 0);
+
+	if (sequentialSearch(empresa.getFrota().getCamioes(), c1) == -1)
+	{
+		cout << "Nao ha nenhum camiao com esse ID. Tente um ID novo." << endl;
+		removerCamiao(empresa);
+	}
+
+	else
+	{
+		empresa.getFrota().retiraCamiao(empresa.getFrota().getCamioes()[sequentialSearch(empresa.getFrota().getCamioes(), c1)]);
+	}
+
+	empresa.saveEmpresa();
+	mostrarFrota(empresa);
 }

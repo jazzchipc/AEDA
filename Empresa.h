@@ -21,7 +21,6 @@ class Empresa
 	Frota frota;
 	float custoCong; // custo extra por capacidade de congelação de um camião
 	float custoPerig; // custo extra por capacidade de transporte de cargas perigosas
-	float custoCap; // custo por kq de carga de um camião
 	float custoDist; // custo por km percorrido pelo camião
 public:
 	//Construtor
