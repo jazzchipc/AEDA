@@ -77,6 +77,16 @@ float Camiao::getTaxa() const
 	return taxa;
 }
 
+/**
+* \brief Obtém os serviços para os quais um camião está a ser usado
+* \return Retorna um vetor com esses serviços
+*/
+
+vector <Servico* > Camiao::getServicos() const
+{
+	return servicos;
+}
+
 
 /**
 * \brief Altera, se necessário, o código de um Camião

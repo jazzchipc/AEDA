@@ -226,6 +226,13 @@ void Empresa::saveEmpresa()
 	{
 		output << camioes[i]->getCapCong() << ";" << camioes[i]->getCapPerig() << ";" << camioes[i]->getCapMax() << ";" <<
 			camioes[i]->getCodigo() << ";" << camioes[i]->getTaxa() << endl;
+
+		for (unsigned int j = 0; j < camioes[i]->getServicos().size(); j++)
+		{
+			output << camioes[i]->getServicos()[j]->getId() << ";";
+		}
+
+		output << endl;
 	}
 
 	output << "END_FROTA" << endl;
@@ -319,7 +326,7 @@ int Empresa::loadEmpresa()
 
 			istringstream copia(linha);
 
-			int codigo;
+			int codigo, id;
 			unsigned int cap_max;
 			float taxa;
 			bool cap_cong, cap_perig;
@@ -327,6 +334,19 @@ int Empresa::loadEmpresa()
 			copia >> cap_cong >> lixo >> cap_perig >> lixo >> cap_max >> lixo >> codigo >> lixo >> taxa;
 
 			Camiao* camiao = new Camiao (codigo, cap_max, cap_cong, cap_perig, taxa);
+
+			getline(input, linha);
+
+			istringstream copia1(linha);
+
+			while (copia1 >> id >> lixo)
+			{
+				Servico* s1 = new Servico(id, 0, 0);
+				int indice = sequentialSearch(this->servicos, s1);
+
+				camiao->adicionaServico(this->servicos[indice]);
+			}
+
 			frota.adicionaCamiao(camiao);
 		}
 	}

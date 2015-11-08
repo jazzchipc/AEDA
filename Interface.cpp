@@ -405,7 +405,7 @@ void adicionarServicos(Empresa &empresa)
 
 	while (1)
 	{
-		cout << "Preco do novo servico: ";
+		cout << "Preco do novo servico por kq de carga: ";
 		getline(cin, input);
 
 		stringstream myStream(input);
@@ -558,7 +558,34 @@ void mostrarFrota(Empresa &empresa)
 
 	empresa.getFrota().readCamioes();
 
-	cout << endl << "Pretende (e)ditar, (a)dicionar ou (r)emover um camiao? ";
+	vector <Camiao* > camioesFrota = empresa.getFrota().getCamioes();
+
+	cout << "\n\nServicos e precos respetivos: " << endl;
+
+	for (unsigned int i = 0; i < camioesFrota.size(); i++)
+	{
+		cout << camioesFrota[i]->getCodigo() << ": ";
+
+		for (unsigned int j = 0; j < camioesFrota[i]->getServicos().size(); j++)
+		{
+			float custo = 0;
+			Servico* servico = camioesFrota[i]->getServicos()[j];
+
+			custo = custo + servico->getPreco() * camioesFrota[i]->getCapMax();
+			custo = custo + servico->getDistancia() * camioesFrota[i]->getTaxa();
+			
+			if (camioesFrota[i]->getCapCong())
+				custo = custo + empresa.getCustoCong();
+			if (camioesFrota[i]->getCapPerig())
+				custo = custo + empresa.getCustoPerig();
+
+			cout << camioesFrota[i]->getServicos()[j]->getId() << " ---> " << custo <<endl;
+		}
+
+		cout << endl;
+	}
+
+	cout << endl << "Pretende (e)ditar os servicos, (a)dicionar ou (r)emover um camiao? ";
 	char opcao;
 	cin >> opcao;
 	cin.ignore(256, '\n');
@@ -568,7 +595,7 @@ void mostrarFrota(Empresa &empresa)
 		cin.clear();
 		cout << "Por favor, utilize as letras \"E\", \"A\" ou \"R\" para especificar a acao." << endl << endl;
 
-		cout << "Pretende (e)ditar, (a)dicionar ou (r)emover um camiao? ";
+		cout << "Pretende (e)ditar os servicos, (a)dicionar ou (r)emover um camiao? ";
 		cin >> opcao;
 		cin.ignore(256, '\n');
 	}
@@ -687,4 +714,24 @@ void adicionarCamiao(Empresa &empresa)
 		empresa.saveEmpresa();
 		mostrarFrota(empresa);
 	}
+}
+
+/*MENU DE EDIÇÃO DE CAMIÕES*/
+void editarCamiao(Empresa &empresa)
+{
+	string input;
+
+	int codigo;
+
+	while (1)
+	{
+		cout << "Codigo do camiao que pretende editar: ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> codigo)
+			break;
+		cout << "Insira um codigo valido, por favor." << endl;
+	}
+
 }

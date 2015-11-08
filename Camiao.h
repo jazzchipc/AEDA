@@ -33,6 +33,7 @@ public:
 	bool getCapPerig() const;
 	int getCodigo() const;
 	float getTaxa() const;
+	vector <Servico* > getServicos() const;
 
 	void updateCodigo(int codigo);
 	void updateCapMax(unsigned int cap_max);
