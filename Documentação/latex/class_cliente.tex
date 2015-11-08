@@ -1,0 +1,146 @@
+\hypertarget{class_cliente}{}\section{Referência à classe Cliente}
+\label{class_cliente}\index{Cliente@{Cliente}}
+
+
+Diagrama de colaboração para Cliente\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=166pt]{class_cliente__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_cliente_a32ef83e95c16d04dd21d3063dc741b2b}{Cliente} (string nome, unsigned int nif)
+\begin{DoxyCompactList}\small\item\em Cria um \hyperlink{class_cliente}{Cliente} usando os parâmetros para definir as sua caracteristicas. \end{DoxyCompactList}\item 
+string \hyperlink{class_cliente_a0325de899469e2fed48ffda2b5b291cf}{get\+Nome} () const 
+\begin{DoxyCompactList}\small\item\em Obtém o Nome de um \hyperlink{class_cliente}{Cliente}. \end{DoxyCompactList}\item 
+unsigned int \hyperlink{class_cliente_acdfcf2501116ef255f082fa8cbcf00f2}{get\+Nif} () const 
+\begin{DoxyCompactList}\small\item\em Obtém o N\+I\+F de um \hyperlink{class_cliente}{Cliente}. \end{DoxyCompactList}\item 
+void \hyperlink{class_cliente_a64bdc5ca23f1d781b5bb4d9bc42f773f}{update\+Nome} (string nome)
+\begin{DoxyCompactList}\small\item\em Altera, se necessário, o nome de um \hyperlink{class_cliente}{Cliente}. \end{DoxyCompactList}\item 
+void \hyperlink{class_cliente_a84df96f0f9cd1aa064fc80f98dc3ccbc}{update\+Nif} (unsigned int nif)
+\begin{DoxyCompactList}\small\item\em Altera, se necessário, o nif de um \hyperlink{class_cliente}{Cliente}. \end{DoxyCompactList}\item 
+bool \hyperlink{class_cliente_a5019f48eb9431f80045b3912734f36b3}{operator==} (const \hyperlink{class_cliente}{Cliente} \&c1)
+\begin{DoxyCompactList}\small\item\em Operador utilizado para verificar se dois clientes são iguais. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Documentação dos Construtores \& Destrutor}
+\hypertarget{class_cliente_a32ef83e95c16d04dd21d3063dc741b2b}{}\index{Cliente@{Cliente}!Cliente@{Cliente}}
+\index{Cliente@{Cliente}!Cliente@{Cliente}}
+\subsubsection[{Cliente(string nome, unsigned int nif)}]{\setlength{\rightskip}{0pt plus 5cm}Cliente\+::\+Cliente (
+\begin{DoxyParamCaption}
+\item[{string}]{nome, }
+\item[{unsigned int}]{nif}
+\end{DoxyParamCaption}
+)}\label{class_cliente_a32ef83e95c16d04dd21d3063dc741b2b}
+
+
+Cria um \hyperlink{class_cliente}{Cliente} usando os parâmetros para definir as sua caracteristicas. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em nome} & Nome do \hyperlink{class_cliente}{Cliente} \\
+\hline
+{\em nif} & N\+I\+F do \hyperlink{class_cliente}{Cliente} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Esta função não possui retorno 
+\end{DoxyReturn}
+
+
+\subsection{Documentação dos métodos}
+\hypertarget{class_cliente_acdfcf2501116ef255f082fa8cbcf00f2}{}\index{Cliente@{Cliente}!get\+Nif@{get\+Nif}}
+\index{get\+Nif@{get\+Nif}!Cliente@{Cliente}}
+\subsubsection[{get\+Nif() const }]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Cliente\+::get\+Nif (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_cliente_acdfcf2501116ef255f082fa8cbcf00f2}
+
+
+Obtém o N\+I\+F de um \hyperlink{class_cliente}{Cliente}. 
+
+\begin{DoxyReturn}{Retorna}
+Retorna o N\+I\+F de um \hyperlink{class_cliente}{Cliente} 
+\end{DoxyReturn}
+\hypertarget{class_cliente_a0325de899469e2fed48ffda2b5b291cf}{}\index{Cliente@{Cliente}!get\+Nome@{get\+Nome}}
+\index{get\+Nome@{get\+Nome}!Cliente@{Cliente}}
+\subsubsection[{get\+Nome() const }]{\setlength{\rightskip}{0pt plus 5cm}string Cliente\+::get\+Nome (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_cliente_a0325de899469e2fed48ffda2b5b291cf}
+
+
+Obtém o Nome de um \hyperlink{class_cliente}{Cliente}. 
+
+\begin{DoxyReturn}{Retorna}
+Retorna o Nome de um \hyperlink{class_cliente}{Cliente} 
+\end{DoxyReturn}
+\hypertarget{class_cliente_a5019f48eb9431f80045b3912734f36b3}{}\index{Cliente@{Cliente}!operator==@{operator==}}
+\index{operator==@{operator==}!Cliente@{Cliente}}
+\subsubsection[{operator==(const Cliente \&c1)}]{\setlength{\rightskip}{0pt plus 5cm}bool Cliente\+::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Cliente} \&}]{c1}
+\end{DoxyParamCaption}
+)}\label{class_cliente_a5019f48eb9431f80045b3912734f36b3}
+
+
+Operador utilizado para verificar se dois clientes são iguais. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em c1} & \hyperlink{class_cliente}{Cliente} a comparar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Retorna true se os clientes forem iguais e false se não forem 
+\end{DoxyReturn}
+\hypertarget{class_cliente_a84df96f0f9cd1aa064fc80f98dc3ccbc}{}\index{Cliente@{Cliente}!update\+Nif@{update\+Nif}}
+\index{update\+Nif@{update\+Nif}!Cliente@{Cliente}}
+\subsubsection[{update\+Nif(unsigned int nif)}]{\setlength{\rightskip}{0pt plus 5cm}void Cliente\+::update\+Nif (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{nif}
+\end{DoxyParamCaption}
+)}\label{class_cliente_a84df96f0f9cd1aa064fc80f98dc3ccbc}
+
+
+Altera, se necessário, o nif de um \hyperlink{class_cliente}{Cliente}. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em codigo} & Novo valor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Esta função não possui retorno 
+\end{DoxyReturn}
+\hypertarget{class_cliente_a64bdc5ca23f1d781b5bb4d9bc42f773f}{}\index{Cliente@{Cliente}!update\+Nome@{update\+Nome}}
+\index{update\+Nome@{update\+Nome}!Cliente@{Cliente}}
+\subsubsection[{update\+Nome(string nome)}]{\setlength{\rightskip}{0pt plus 5cm}void Cliente\+::update\+Nome (
+\begin{DoxyParamCaption}
+\item[{string}]{nome}
+\end{DoxyParamCaption}
+)}\label{class_cliente_a64bdc5ca23f1d781b5bb4d9bc42f773f}
+
+
+Altera, se necessário, o nome de um \hyperlink{class_cliente}{Cliente}. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em codigo} & Novo valor \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Esta função não possui retorno 
+\end{DoxyReturn}
+
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/josea/\+Documents/\+Git\+Hub/\+A\+E\+D\+A-\/\+Part1/Cliente.\+h\item 
+C\+:/\+Users/josea/\+Documents/\+Git\+Hub/\+A\+E\+D\+A-\/\+Part1/Cliente.\+cpp\end{DoxyCompactItemize}
