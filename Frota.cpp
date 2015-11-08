@@ -50,10 +50,11 @@ void Frota::retiraCamiao(Camiao *c1)
 */
 void Frota::readCamioes()const
 {
-	cout << setw(8) << "Codigo" << setw(16) << "Capacidade (KG)" << setw(15) << "Congelador" << endl;
+	cout << setw(8) << "Codigo" << setw(16) << "Taxa (euros)" << setw(16) << "Capacidade (KG)" << setw(15) << "Congelador" << setw(15) << "Carga perigosa" << endl;
 	for (unsigned int i = 0; i < camioes.size(); i++)
 	{
-		cout << setw(8) << camioes[i]->getCodigo() << setw(16) << camioes[i]->getCapMax() << setw(15) << camioes[i]->getCapCong() << endl;
+		cout << setw(8) << camioes[i]->getCodigo() << setw(16) << camioes[i]->getTaxa()
+			<< setw(16) << camioes[i]->getCapMax() << setw(15) << camioes[i]->getCapCong() << setw(15) << camioes[i]->getCapPerig() << endl;
 	}
 }
 

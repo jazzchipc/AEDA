@@ -19,6 +19,10 @@ class Empresa
 	string nome;
 	vector <Servico*> servicos;
 	Frota frota;
+	float custoCong; // custo extra por capacidade de congelação de um camião
+	float custoPerig; // custo extra por capacidade de transporte de cargas perigosas
+	float custoCap; // custo por kq de carga de um camião
+	float custoDist; // custo por km percorrido pelo camião
 public:
 	//Construtor
 	Empresa(string nome);
@@ -61,6 +65,18 @@ public:
 
 	//Vai buscar a informação ao ficheiro com o nome da empresa
 	int loadEmpresa();
+
+	float getCustoCap() const;
+	float getCustoCong() const;
+	float getCustoPerig() const;
+	float getCustoDist() const;
+
+	void setCustoCap(float n);
+	void setCustoCong(float n);
+	void setCustoPerig(float n); 
+	void setCustoDist(float n);
+
+	
 };
 
 

@@ -15,13 +15,15 @@
 /**
 * \brief Cria um Serviço usando os parâmetros para definir as sua caracteristicas
 * \param id ID do Serviço
-* \param preco Preço do Serviço
+* \param preco Preço do Serviço em custo por quilograma de carga (€/kg)
+* \param distancia Distância que o camião vai percorrer durante o serviço (km)
 * \return Esta função não possui retorno
 */
-Servico::Servico(int id, float preco)
+Servico::Servico(int id, float preco, float distancia)
 {
 	this->id = id;
 	this->preco = preco;
+	this->distancia = distancia;
 	status = false;
 }
 
@@ -76,7 +78,7 @@ float Servico::getPreco() const
 
 /**
 * \brief Altera, se necessário, o preço de um Serviço
-* \param preco Novo valor
+* \param preco Novo valor (em €/kg) do serviço
 * \return Esta função não possui retorno
 */
 void Servico::updatePreco(float preco)
@@ -91,6 +93,15 @@ void Servico::updatePreco(float preco)
 vector<Cliente*> Servico::getClientes() const
 {
 	return clientes;
+}
+
+/**
+* \brief Obtém a distância necessária para executar o serviço
+* \return Retorna o valor em km
+*/
+float Servico::getDistancia() const
+{
+	return distancia;
 }
 
 /**
@@ -147,6 +158,9 @@ bool Servico::operator==(const Servico& s1)
 	else
 		return false;
 }
+
+
+
 
 
 

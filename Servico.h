@@ -21,12 +21,13 @@ class Servico
 {private:
 	int id;
 	float preco;
+	float distancia;
 	vector <Cliente*> clientes;
 	bool status;	// status = true se o serviço está a ser usado por alguém.
 					// status = false caso contrário
 public:
 	//Construtor
-	Servico(int id, float preco);
+	Servico(int id, float preco, float distancia);
 
 	//Destrutor
 	~Servico() {};
@@ -45,6 +46,8 @@ public:
 
 	//Retorna o preço do serviço
 	float getPreco() const;
+
+	float getDistancia() const;
 
 	//Retorna o vetor de clientes que está a usufruir do serviço
 	vector<Cliente*> getClientes() const;

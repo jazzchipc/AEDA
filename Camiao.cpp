@@ -19,13 +19,17 @@
 * \param codigo Codigo identificador do Camião
 * \param cap_max Capacidade Máxima do Camião
 * \param cap_cong Valor Lógico da Capacidade de Congelação do Camião
+* \param cap_perig Valor Lógico da Capacidade de Transporte de Cargas Perigosas do Camião
+* \param taxa Custo da utilização do camião por cada quilómetro percorrido (€/km)
 * \return Esta função não possui retorno
 */
-Camiao::Camiao(int codigo, unsigned int cap_max, bool cap_cong)
+Camiao::Camiao(int codigo, unsigned int cap_max, bool cap_cong, bool cap_perig, float taxa)
 {
 	this->codigo = codigo;
 	this->cap_max = cap_max;
 	this->cap_cong = cap_cong;
+	this->cap_perig = cap_perig;
+	this->taxa = taxa;
 }
 
 /**
@@ -47,6 +51,15 @@ bool Camiao::getCapCong() const
 }
 
 /**
+* \brief Verifica se um Camião tem ou não capacidade de transportar cargas perigosas
+* \return Retorna o valor lógico da capacidade de transporte de cargas perigosas
+*/
+bool Camiao::getCapPerig() const
+{
+	return cap_perig;
+}
+
+/**
 * \brief Obtém o Código identificador de um Camião
 * \return Retorna o Código de um Camião
 */
@@ -54,6 +67,16 @@ int Camiao::getCodigo() const
 {
 	return codigo;
 }
+
+/**
+* \brief Obtém a taxa de utilização de um Camião
+* \return Retorna essa taxa
+*/
+float Camiao::getTaxa() const
+{
+	return taxa;
+}
+
 
 /**
 * \brief Altera, se necessário, o código de um Camião

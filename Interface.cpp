@@ -77,9 +77,67 @@ Empresa gerar()
 
 	Empresa empresa(nomeEmpresa);
 
-	empresa.saveEmpresa();
+	string input;
+	float custoCap, custoDist, custoCong, custoPerig;
 
-	cout << "Acabou de ser gerado um ficheiro para a sua empresa com o titulo" << nomeEmpresa << ".txt" << endl << endl;
+	while (1)
+	{
+		cout << "Taxa que a empresa vai cobrar por cada kq de um camiao: ";
+		getline(cin, input);
+		cout << endl;
+
+		stringstream myStream(input);
+		if (myStream >> custoCap && custoCap >= 0)
+			break;
+		cout << "Insira uma taxa válida" << endl;
+	}
+
+	while (1)
+	{
+		cout << "Taxa que a empresa vai cobrar por cada km perocrrido: ";
+		getline(cin, input);
+		cout << endl;
+
+		stringstream myStream(input);
+		if (myStream >> custoDist && custoDist >= 0)
+			break;
+		cout << "Insira uma taxa válida" << endl;
+	}
+
+	while (1)
+	{
+		cout << "Preco extra por capacidade de congelacao: ";
+		getline(cin, input);
+		cout << endl;
+
+		stringstream myStream(input);
+		if (myStream >> custoCong && custoCong >= 0)
+			break;
+		cout << "Insira um custo valido." << endl;
+	}
+
+	while (1)
+	{
+		cout << "Preco extra por capacidade de transporte de carga perigosa: ";
+		getline(cin, input);
+		cout << endl;
+
+		stringstream myStream(input);
+		if (myStream >> custoPerig && custoPerig >= 0)
+			break;
+		cout << "Insira um custo valido." << endl;
+	}
+
+	empresa.setCustoCap(custoCap);
+	empresa.setCustoCong(custoCong);
+	empresa.setCustoPerig(custoPerig);
+	empresa.setCustoDist(custoDist);
+
+	empresa.saveEmpresa();
+	
+	cout << "Acabou de ser gerado um ficheiro para a sua empresa com o titulo: " << nomeEmpresa << ".txt" << endl << endl;
+
+	this_thread::sleep_for(std::chrono::seconds(2));
 
 	return empresa;
 
@@ -342,7 +400,7 @@ void editarServicos(Empresa &empresa)
 void adicionarServicos(Empresa &empresa)
 {
 	int id;
-	float preco;
+	float preco, distancia;
 	string input;
 
 	while (1)
@@ -358,6 +416,17 @@ void adicionarServicos(Empresa &empresa)
 
 	while (1)
 	{
+		cout << "Distancia a percorrer no servico: ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> distancia && distancia >= 0)
+			break;
+		cout << "Insira uma distancia, por favor." << endl;
+	}
+
+	while (1)
+	{
 		cout << "ID do novo servico: ";
 		getline(cin, input);
 
@@ -367,7 +436,7 @@ void adicionarServicos(Empresa &empresa)
 		cout << "Insira um ID valido, por favor." << endl;
 	}
 
-	Servico* servico = new Servico (id, preco);
+	Servico* servico = new Servico (id, preco, distancia);
 
 	if (sequentialSearch(empresa.getServicos(), servico) != -1)
 	{
@@ -400,7 +469,7 @@ void removerServicos(Empresa &empresa)
 		cout << "Insira um ID valido, por favor." << endl;
 	}
 
-	Servico* servico = new Servico(id, 0);
+	Servico* servico = new Servico(id, 0, 0);
 
 	try
 	{
@@ -423,6 +492,13 @@ void removerServicos(Empresa &empresa)
 void mostrarClientes(Empresa &empresa)
 {
 	clearScreen();
+
+	if (empresa.getServicos().size() == 0)
+	{
+		cout << "Nao ha servicos disponiveis para mostrar clientes." << endl << "Crie primeiro um servico e adicione um cliente." << endl;
+		this_thread::sleep_for(std::chrono::seconds(2));
+		menuPrincipal(empresa);
+	}
 
 	empresa.printServicos();
 
@@ -467,6 +543,7 @@ void mostrarClientes(Empresa &empresa)
 
 }
 
+
 /*MENU DE FROTA*/
 void mostrarFrota(Empresa &empresa)
 {
@@ -474,9 +551,14 @@ void mostrarFrota(Empresa &empresa)
 
 	cout << "Digitar 0 retorna-o ao menu principal." << endl << endl;
 
+	cout << "Taxa por kq de carga: " << empresa.getCustoCap() << " euros" << endl;
+	cout << "Taxa por km percorrido: " << empresa.getCustoDist() << " euros" << endl;
+	cout << "Custo extra por transporte de carga congelada: " << empresa.getCustoCong() << " euros" << endl;
+	cout << "Custo extra por transporte de cargas perigosas: " << empresa.getCustoPerig() << " euros" << endl << endl;
+
 	empresa.getFrota().readCamioes();
 
-	cout << "Pretende (e)ditar, (a)dicionar ou (r)emover um camiao? ";
+	cout << endl << "Pretende (e)ditar, (a)dicionar ou (r)emover um camiao? ";
 	char opcao;
 	cin >> opcao;
 	cin.ignore(256, '\n');
@@ -492,10 +574,10 @@ void mostrarFrota(Empresa &empresa)
 	}
 
 	switch (opcao)
-	{/*
+	{
 	case 'A':
 	case 'a': adicionarCamiao(empresa); break;
-	case 'e':
+	/*case 'e':
 	case 'E':
 		if (empresa.getFrota().getCamioes.size() == 0)
 		{
@@ -520,4 +602,89 @@ void mostrarFrota(Empresa &empresa)
 	case '0': menuPrincipal(empresa); break;
 	}
 
+}
+
+/*MENU DE ADIÇÃO DE CAMIÕES*/
+void adicionarCamiao(Empresa &empresa)
+{
+	int codigo;
+	unsigned int capMax;
+	bool capCong, capPerig;
+	float taxa;
+
+	string input;
+
+	while (1)
+	{
+		cout << "Codigo do novo camiao: ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> codigo)
+			break;
+		cout << "Insira um codigo valido, por favor." << endl;
+	}
+
+	while (1)
+	{
+		cout << "Carga maxima do novo camiao: ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> capMax && capMax >= 0)
+			break;
+		cout << "Insira um valor valido, por favor." << endl;
+	}
+
+	while (1)
+	{
+		cout << "O camiao tem funcao congeladora? (1: true/0: false): ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> capCong)
+			break;
+		cout << "Utilize um bool: true ou false." << endl;
+	}
+
+	while (1)
+	{
+		cout << "O camiao pode transportar cargas perigosas? (1: true/0: false): ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> capPerig)
+			break;
+		cout << "Utilize um bool: true ou false." << endl;
+	}
+
+
+	while (1)
+	{
+		cout << "Qual a taxa de utilizacao do camiao por quilometro? ";
+		getline(cin, input);
+
+		stringstream myStream(input);
+		if (myStream >> taxa && taxa >= 0)
+			break;
+		cout << "Insira uma taxa válida." << endl;
+	}
+
+	Camiao* camiao = new Camiao(codigo, capMax, capCong, capPerig, taxa);
+
+	if (sequentialSearch(empresa.getFrota().getCamioes(), camiao) != -1)
+	{
+		cout << "\nJa existe um camiao com esse codigo. Volte a adicionar um camiao com codigo diferente.\n";
+		this_thread::sleep_for(std::chrono::milliseconds(2000));
+		adicionarServicos(empresa);
+	}
+	else
+	{
+		Frota frota (empresa.getFrota());
+		frota.adicionaCamiao(camiao);
+
+		empresa.setFrota(frota);
+		empresa.saveEmpresa();
+		mostrarFrota(empresa);
+	}
 }
