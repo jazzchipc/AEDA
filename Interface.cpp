@@ -16,6 +16,13 @@ void clearScreen()
 #endif
 }
 
+void primaEnter()
+{
+	string enter;
+	cout << endl << "Prima ENTER para continuar." << endl;
+	getline(cin, enter);
+}
+
 void printTitulo()
 
 {
@@ -124,7 +131,8 @@ Empresa gerar()
 	
 	cout << "Acabou de ser gerado um ficheiro para a sua empresa com o titulo: " << nomeEmpresa << ".txt" << endl << endl;
 
-	this_thread::sleep_for(std::chrono::seconds(2));
+	//this_thread::sleep_for(std::chrono::seconds(2));
+	primaEnter();
 
 	return empresa;
 
@@ -145,7 +153,8 @@ Empresa carregar()
 	if (empresa.loadEmpresa() == -1)
 	{
 		std::cout << "Nao ha nenhum ficheiro para essa empresa. Por favor crie um.\n";
-		this_thread::sleep_for(std::chrono::seconds(2));
+		//this_thread::sleep_for(std::chrono::seconds(2));
+		primaEnter();
 		clearScreen();
 		firstScreen();
 	}
@@ -226,7 +235,8 @@ void mostrarServicos(Empresa &empresa)
 		if (empresa.getServicos().size() == 0)
 		{
 			cout << "\nNao ha servicos para editar. Adicione um servico primeiro.\n";
-			this_thread::sleep_for(std::chrono::milliseconds(2000));
+			//this_thread::sleep_for(std::chrono::milliseconds(2000));
+			primaEnter();
 			mostrarServicos(empresa);
 		}
 		else
@@ -237,7 +247,8 @@ void mostrarServicos(Empresa &empresa)
 		if (empresa.getServicos().size() == 0)
 		{
 			cout << "\nNao ha servicos para remover. Adicione um servico primeiro.\n";
-			this_thread::sleep_for(std::chrono::milliseconds(2000));
+			//this_thread::sleep_for(std::chrono::milliseconds(2000));
+			primaEnter();
 			mostrarServicos(empresa);
 		}
 		else
@@ -351,7 +362,8 @@ void editarServicos(Empresa &empresa)
 			if (empresa.getServicos()[index]->getClientes().size() == 0)
 			{
 				cout << "Este servico nao tem clientes." << endl << endl;
-				this_thread::sleep_for(std::chrono::milliseconds(2000));
+				//this_thread::sleep_for(std::chrono::milliseconds(2000));
+				primaEnter();
 
 			}
 
@@ -434,7 +446,8 @@ void adicionarServicos(Empresa &empresa)
 	if (sequentialSearch(empresa.getServicos(), servico) != -1)
 	{
 		cout << "\nJa existe um servico com esse ID. Volte a adicionar um servico com ID diferente.\n";
-		this_thread::sleep_for(std::chrono::milliseconds(2000));
+		//this_thread::sleep_for(std::chrono::milliseconds(2000));
+		primaEnter();
 		adicionarServicos(empresa);
 	}
 	else
@@ -489,7 +502,8 @@ void mostrarClientes(Empresa &empresa)
 	if (empresa.getServicos().size() == 0)
 	{
 		cout << "Nao ha servicos disponiveis para mostrar clientes." << endl << "Crie primeiro um servico e adicione um cliente." << endl;
-		this_thread::sleep_for(std::chrono::seconds(2));
+		//this_thread::sleep_for(std::chrono::seconds(2));
+		primaEnter();
 		menuPrincipal(empresa);
 	}
 
@@ -601,7 +615,8 @@ void mostrarFrota(Empresa &empresa)
 		if (empresa.getFrota().getCamioes().size() == 0)
 		{
 			cout << "\nNao ha camioes para editar. Adicione um camioes primeiro.\n";
-			this_thread::sleep_for(std::chrono::milliseconds(2000));
+			//this_thread::sleep_for(std::chrono::milliseconds(2000));
+			primaEnter();
 			mostrarFrota(empresa);
 		}
 		else
@@ -675,7 +690,8 @@ void adicionarCamiao(Empresa &empresa)
 	if (sequentialSearch(empresa.getFrota().getCamioes(), camiao) != -1)
 	{
 		cout << "\nJa existe um camiao com esse codigo. Volte a adicionar um camiao com codigo diferente.\n";
-		this_thread::sleep_for(std::chrono::milliseconds(2000));
+		//this_thread::sleep_for(std::chrono::milliseconds(2000));
+		primaEnter();
 		adicionarServicos(empresa);
 	}
 	else
