@@ -1,0 +1,271 @@
+\hypertarget{class_servico}{}\section{Referência à classe Servico}
+\label{class_servico}\index{Servico@{Servico}}
+
+
+Diagrama de colaboração para Servico\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{class_servico__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Membros públicos}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_servico_ad6f73e597087d194f6a768f5b49174a4}{Servico} (int id, float preco, float distancia)
+\begin{DoxyCompactList}\small\item\em Cria um Serviço usando os parâmetros para definir as sua caracteristicas. \end{DoxyCompactList}\item 
+void \hyperlink{class_servico_a9a12bcdd4adb4dcb9718f6ccc4320e2e}{set\+Status} (bool status)
+\begin{DoxyCompactList}\small\item\em Atribui um status a um Serviço, ativo(true) ou inativo(false) \end{DoxyCompactList}\item 
+int \hyperlink{class_servico_aeedaf81332746435112616620626f8a0}{get\+Id} () const 
+\begin{DoxyCompactList}\small\item\em Obtém o I\+D de um Serviço. \end{DoxyCompactList}\item 
+bool \hyperlink{class_servico_ac4da7c7738bc5d0a186676ed72eb3f7f}{get\+Status} () const 
+\begin{DoxyCompactList}\small\item\em Verifica se um Serviço está ou não ativo. \end{DoxyCompactList}\item 
+string \hyperlink{class_servico_aca8339e45a5072b69f538d9a6791084e}{print\+Status} ()
+\begin{DoxyCompactList}\small\item\em Averigua o valor lógico do status. \end{DoxyCompactList}\item 
+float \hyperlink{class_servico_a7eea58bc4405f61335bddf3fc25bfafa}{get\+Preco} () const 
+\begin{DoxyCompactList}\small\item\em Obtém o Preço de um Serviço. \end{DoxyCompactList}\item 
+float \hyperlink{class_servico_a07f492f6984fa33781adbedafe3d7977}{get\+Distancia} () const 
+\begin{DoxyCompactList}\small\item\em Obtém a distância necessária para executar o serviço. \end{DoxyCompactList}\item 
+vector$<$ \hyperlink{class_cliente}{Cliente} $\ast$ $>$ \hyperlink{class_servico_a3e6faedd16eb2027986b032c1fe601ce}{get\+Clientes} () const 
+\begin{DoxyCompactList}\small\item\em Obtém o vetor que guarda todos os Clientes. \end{DoxyCompactList}\item 
+void \hyperlink{class_servico_a230392fbbe40d5d4cb5198f65ba26cd5}{adiciona\+Cliente} (\hyperlink{class_cliente}{Cliente} $\ast$j1)
+\begin{DoxyCompactList}\small\item\em Adiciona um \hyperlink{class_cliente}{Cliente} ao vetor. \end{DoxyCompactList}\item 
+void \hyperlink{class_servico_ab6fedbc606ac14cd7181be469d763e91}{retira\+Cliente} (\hyperlink{class_cliente}{Cliente} $\ast$j1)
+\begin{DoxyCompactList}\small\item\em Retira um \hyperlink{class_cliente}{Cliente} do vetor, caso este lá esteja, caso contrário lança a excessão \hyperlink{class_cliente_inexistente}{Cliente\+Inexistente}. \end{DoxyCompactList}\item 
+void \hyperlink{class_servico_a98156d44790f7aa46e9af802a5c54f2d}{read\+Clientes} () const 
+\begin{DoxyCompactList}\small\item\em Imprime todas as informações dos clientes do vetor. \end{DoxyCompactList}\item 
+void \hyperlink{class_servico_a596e378b994c4033d12e180129316f4b}{update\+Preco} (float preco)
+\begin{DoxyCompactList}\small\item\em Altera, se necessário, o preço de um Serviço. \end{DoxyCompactList}\item 
+bool \hyperlink{class_servico_a3b5df4e06c2e553584762c9047fc470f}{operator==} (const \hyperlink{class_servico}{Servico} \&s1)
+\begin{DoxyCompactList}\small\item\em Operador utilizado para verificar se dois serviços são iguais. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Documentação dos Construtores \& Destrutor}
+\hypertarget{class_servico_ad6f73e597087d194f6a768f5b49174a4}{}\index{Servico@{Servico}!Servico@{Servico}}
+\index{Servico@{Servico}!Servico@{Servico}}
+\subsubsection[{Servico(int id, float preco, float distancia)}]{\setlength{\rightskip}{0pt plus 5cm}Servico\+::\+Servico (
+\begin{DoxyParamCaption}
+\item[{int}]{id, }
+\item[{float}]{preco, }
+\item[{float}]{distancia}
+\end{DoxyParamCaption}
+)}\label{class_servico_ad6f73e597087d194f6a768f5b49174a4}
+
+
+Cria um Serviço usando os parâmetros para definir as sua caracteristicas. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em id} & I\+D do Serviço \\
+\hline
+{\em preco} & Preço do Serviço em custo por quilograma de carga (/kg) \\
+\hline
+{\em distancia} & Distância que o camião vai percorrer durante o serviço (km) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Esta função não possui retorno 
+\end{DoxyReturn}
+
+
+\subsection{Documentação dos métodos}
+\hypertarget{class_servico_a230392fbbe40d5d4cb5198f65ba26cd5}{}\index{Servico@{Servico}!adiciona\+Cliente@{adiciona\+Cliente}}
+\index{adiciona\+Cliente@{adiciona\+Cliente}!Servico@{Servico}}
+\subsubsection[{adiciona\+Cliente(\+Cliente $\ast$j1)}]{\setlength{\rightskip}{0pt plus 5cm}void Servico\+::adiciona\+Cliente (
+\begin{DoxyParamCaption}
+\item[{{\bf Cliente} $\ast$}]{j1}
+\end{DoxyParamCaption}
+)}\label{class_servico_a230392fbbe40d5d4cb5198f65ba26cd5}
+
+
+Adiciona um \hyperlink{class_cliente}{Cliente} ao vetor. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em j1} & \hyperlink{class_cliente}{Cliente} a adicionar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Esta função não possui retorno 
+\end{DoxyReturn}
+\hypertarget{class_servico_a3e6faedd16eb2027986b032c1fe601ce}{}\index{Servico@{Servico}!get\+Clientes@{get\+Clientes}}
+\index{get\+Clientes@{get\+Clientes}!Servico@{Servico}}
+\subsubsection[{get\+Clientes() const }]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ {\bf Cliente} $\ast$ $>$ Servico\+::get\+Clientes (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_servico_a3e6faedd16eb2027986b032c1fe601ce}
+
+
+Obtém o vetor que guarda todos os Clientes. 
+
+\begin{DoxyReturn}{Retorna}
+Retorna o vetor 
+\end{DoxyReturn}
+\hypertarget{class_servico_a07f492f6984fa33781adbedafe3d7977}{}\index{Servico@{Servico}!get\+Distancia@{get\+Distancia}}
+\index{get\+Distancia@{get\+Distancia}!Servico@{Servico}}
+\subsubsection[{get\+Distancia() const }]{\setlength{\rightskip}{0pt plus 5cm}float Servico\+::get\+Distancia (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_servico_a07f492f6984fa33781adbedafe3d7977}
+
+
+Obtém a distância necessária para executar o serviço. 
+
+\begin{DoxyReturn}{Retorna}
+Retorna o valor em km 
+\end{DoxyReturn}
+\hypertarget{class_servico_aeedaf81332746435112616620626f8a0}{}\index{Servico@{Servico}!get\+Id@{get\+Id}}
+\index{get\+Id@{get\+Id}!Servico@{Servico}}
+\subsubsection[{get\+Id() const }]{\setlength{\rightskip}{0pt plus 5cm}int Servico\+::get\+Id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_servico_aeedaf81332746435112616620626f8a0}
+
+
+Obtém o I\+D de um Serviço. 
+
+\begin{DoxyReturn}{Retorna}
+Retorna o I\+D de um Serviço 
+\end{DoxyReturn}
+\hypertarget{class_servico_a7eea58bc4405f61335bddf3fc25bfafa}{}\index{Servico@{Servico}!get\+Preco@{get\+Preco}}
+\index{get\+Preco@{get\+Preco}!Servico@{Servico}}
+\subsubsection[{get\+Preco() const }]{\setlength{\rightskip}{0pt plus 5cm}float Servico\+::get\+Preco (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_servico_a7eea58bc4405f61335bddf3fc25bfafa}
+
+
+Obtém o Preço de um Serviço. 
+
+\begin{DoxyReturn}{Retorna}
+Retorna o Preço de um Serviço 
+\end{DoxyReturn}
+\hypertarget{class_servico_ac4da7c7738bc5d0a186676ed72eb3f7f}{}\index{Servico@{Servico}!get\+Status@{get\+Status}}
+\index{get\+Status@{get\+Status}!Servico@{Servico}}
+\subsubsection[{get\+Status() const }]{\setlength{\rightskip}{0pt plus 5cm}bool Servico\+::get\+Status (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_servico_ac4da7c7738bc5d0a186676ed72eb3f7f}
+
+
+Verifica se um Serviço está ou não ativo. 
+
+\begin{DoxyReturn}{Retorna}
+Retorna o valor lógico do status 
+\end{DoxyReturn}
+\hypertarget{class_servico_a3b5df4e06c2e553584762c9047fc470f}{}\index{Servico@{Servico}!operator==@{operator==}}
+\index{operator==@{operator==}!Servico@{Servico}}
+\subsubsection[{operator==(const Servico \&s1)}]{\setlength{\rightskip}{0pt plus 5cm}bool Servico\+::operator== (
+\begin{DoxyParamCaption}
+\item[{const {\bf Servico} \&}]{s1}
+\end{DoxyParamCaption}
+)}\label{class_servico_a3b5df4e06c2e553584762c9047fc470f}
+
+
+Operador utilizado para verificar se dois serviços são iguais. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em s1} & Serviço a comparar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Retorna true se os Serviços forem iguais e false se não forem 
+\end{DoxyReturn}
+\hypertarget{class_servico_aca8339e45a5072b69f538d9a6791084e}{}\index{Servico@{Servico}!print\+Status@{print\+Status}}
+\index{print\+Status@{print\+Status}!Servico@{Servico}}
+\subsubsection[{print\+Status()}]{\setlength{\rightskip}{0pt plus 5cm}string Servico\+::print\+Status (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_servico_aca8339e45a5072b69f538d9a6791084e}
+
+
+Averigua o valor lógico do status. 
+
+\begin{DoxyReturn}{Retorna}
+Retorna o status de um Serviço, ativo ou inativo 
+\end{DoxyReturn}
+\hypertarget{class_servico_a98156d44790f7aa46e9af802a5c54f2d}{}\index{Servico@{Servico}!read\+Clientes@{read\+Clientes}}
+\index{read\+Clientes@{read\+Clientes}!Servico@{Servico}}
+\subsubsection[{read\+Clientes() const }]{\setlength{\rightskip}{0pt plus 5cm}void Servico\+::read\+Clientes (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_servico_a98156d44790f7aa46e9af802a5c54f2d}
+
+
+Imprime todas as informações dos clientes do vetor. 
+
+\begin{DoxyReturn}{Retorna}
+Esta função não possui retorno 
+\end{DoxyReturn}
+\hypertarget{class_servico_ab6fedbc606ac14cd7181be469d763e91}{}\index{Servico@{Servico}!retira\+Cliente@{retira\+Cliente}}
+\index{retira\+Cliente@{retira\+Cliente}!Servico@{Servico}}
+\subsubsection[{retira\+Cliente(\+Cliente $\ast$j1)}]{\setlength{\rightskip}{0pt plus 5cm}void Servico\+::retira\+Cliente (
+\begin{DoxyParamCaption}
+\item[{{\bf Cliente} $\ast$}]{j1}
+\end{DoxyParamCaption}
+)}\label{class_servico_ab6fedbc606ac14cd7181be469d763e91}
+
+
+Retira um \hyperlink{class_cliente}{Cliente} do vetor, caso este lá esteja, caso contrário lança a excessão \hyperlink{class_cliente_inexistente}{Cliente\+Inexistente}. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em j1} & \hyperlink{class_cliente}{Cliente} a retirar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Esta função não possui retorno 
+\end{DoxyReturn}
+\hypertarget{class_servico_a9a12bcdd4adb4dcb9718f6ccc4320e2e}{}\index{Servico@{Servico}!set\+Status@{set\+Status}}
+\index{set\+Status@{set\+Status}!Servico@{Servico}}
+\subsubsection[{set\+Status(bool status)}]{\setlength{\rightskip}{0pt plus 5cm}void Servico\+::set\+Status (
+\begin{DoxyParamCaption}
+\item[{bool}]{status}
+\end{DoxyParamCaption}
+)}\label{class_servico_a9a12bcdd4adb4dcb9718f6ccc4320e2e}
+
+
+Atribui um status a um Serviço, ativo(true) ou inativo(false) 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em status} & Status a atribuir \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Esta função não possui retorno 
+\end{DoxyReturn}
+\hypertarget{class_servico_a596e378b994c4033d12e180129316f4b}{}\index{Servico@{Servico}!update\+Preco@{update\+Preco}}
+\index{update\+Preco@{update\+Preco}!Servico@{Servico}}
+\subsubsection[{update\+Preco(float preco)}]{\setlength{\rightskip}{0pt plus 5cm}void Servico\+::update\+Preco (
+\begin{DoxyParamCaption}
+\item[{float}]{preco}
+\end{DoxyParamCaption}
+)}\label{class_servico_a596e378b994c4033d12e180129316f4b}
+
+
+Altera, se necessário, o preço de um Serviço. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em preco} & Novo valor (em /kg) do serviço \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Esta função não possui retorno 
+\end{DoxyReturn}
+
+
+A documentação para esta classe foi gerada a partir dos seguintes ficheiros\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/josea/\+Documents/\+Git\+Hub/\+A\+E\+D\+A-\/\+Part1/Servico.\+h\item 
+C\+:/\+Users/josea/\+Documents/\+Git\+Hub/\+A\+E\+D\+A-\/\+Part1/Servico.\+cpp\end{DoxyCompactItemize}
